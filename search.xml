@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>MFCC提取过程详解</title>
+    <url>/2019/10/30/MFCC%E6%8F%90%E5%8F%96%E8%BF%87%E7%A8%8B%E8%AF%A6%E8%A7%A3/</url>
+    <content><![CDATA[<h1 id="MFCC提取过程详解"><a href="#MFCC提取过程详解" class="headerlink" title="MFCC提取过程详解"></a>MFCC提取过程详解</h1><h2 id="MFCC是什么？"><a href="#MFCC是什么？" class="headerlink" title="MFCC是什么？"></a>MFCC是什么？</h2><p>MFCCs是一个在语音识别和说话者识别领域被广泛运用的特征，由Davis和Mermelstein在1980年提出，可以说从那以后，MFCCs就一直占据这声音特征方面的state-of-the-art。这篇文章主要介绍MFCCs的提取过程以及为什么MFCCs对声音特征的表达会这么好。</p>
+<blockquote>
+<ul>
+<li>1980年，Davis和Mermelstein等人通过对梅尔滤波器的研究，发现了梅尔频率倒谱系数（Mel Frequency Cepstral      Coefficients，MFCC）。随着MFCC特征参数及其衍生参数被多数学者所接受，因此科研人员开始利用MFCC特征参数的[模板匹配算法](onenote:#模板匹配算法&amp;section-id={73EF26E9-19C0-4F9B-BA6F-A390C8851415}&amp;page-id={C5C29020-9E63-46A5-9AF4-66EF181B1967}&amp;object-id={D860292A-AF59-4E81-A130-C547AE0A495B}&amp;27&amp;base-path=<a href="https://d.docs.live.net/ff6497e48aac00f1/文档/2019-2020" target="_blank" rel="noopener">https://d.docs.live.net/ff6497e48aac00f1/文档/2019-2020</a> 研究生二年级（上）/论文阅读.one)提高说话人的识别效率。</li>
+</ul>
+</blockquote>
+<p>提取：</p>
+<p>预处理过程包括：预加重、分帧和加窗函数。</p>
+<p>预加重的目的：就是在于弥补发音系统所抑制的高频分量的损失，这个与发生机理有关，有理论认为声门脉冲的频率响应曲线接近于一个二阶低通滤波器，而口腔的辐射响应也接近于一个一阶高通滤波器。其次，高频段信号能量明显小，预加重后可以使信号的频谱更加趋近与平缓，之后能够用相同的信噪比去对频谱进行处理。</p>
+<p>操作：通过一个高通滤波器。</p>
+<p>$H(z)=1-\mu z^{-1}$,其中$\mu$通常取介于0.9-1.0之间，我们通常取0.97。</p>
+<p>语音信号是一个非稳态、时变的信号，但是经过分帧处理后，在某个“短时间”的范围内可以认为信号是稳态的，通常我们取20-40m为一帧的宽度。结合TIMIT数据集，对语音信号分析发现这里选择25ms作为一帧能够更好的反映出信号处理的短时平稳特征，如图所示，保证了一个帧内含有2到3个周期的信号波动。</p>
+<p><img src="C:%5CUsers%5Cwangj%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1568894232165.png" alt="1568894232165"></p>
+<p>对每一帧进行加窗。加窗的目的是平滑信号，使用汉宁窗加以平滑的话，相比于矩形窗函数，会减弱FFT以后旁瓣大小以及频谱泄露，至于窗函数的类型影响不是很重要。从上面的例子可以看出来，如果不进行加窗，那么某一帧的结束值和下一帧的开始值会有一个跳跃现象存在。</p>
+<ol start="3">
+<li><p>对每一帧进行离散傅里叶变换（DFT）目的：</p>
+<ol>
+<li>在于由于信号在时域上的变换通常很难看出信号的特性，所以通常将它转换为频域上的能量分布来观察，不同的能量分布，就能代表不同语音的特性。并对语音信号的频谱取模平方得到语音信号的功率谱。<strong>能量谱（幅度谱平方）</strong>— 功率谱的周期图估计</li>
+</ol>
+</li>
+</ol>
+<ol start="4">
+<li><p>三角带通滤波器：（模仿人耳）接将所有频点 （N维）能量作为特<strong>征有非常大的冗余</strong>（理解了！！），因为<strong>听觉掩蔽</strong>效应许多相邻频率对人耳作用结果相似，因此通常用少量filterbank将频域划分成少量子带（比如24个filterbank，这些子带在mel频域是均匀划分的，相邻子带有一半重叠，在自然频域则是低频窄高频宽)，每个子带输出子带能量和作为特征表征该频率段的能量水平，这样就得到24个特征。</p>
+<p>（This is a set of 20-40 (26 is standard) triangular filters that we apply to the periodogram power spectral estimate from step 2. Our filterbank comes in the form of 26 vectors of length 257 (assuming the FFT settings fom step 2)</p>
+<p><img src="C:%5CUsers%5Cwangj%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1568897160126.png" alt="1568897160126"></p>
+<p>计算mel倒谱bank的来龙去脉：（也有不用转换的，直接代公式去执行）</p>
+<ol>
+<li><p>300-800 之间有10个滤波器</p>
+</li>
+<li><p>转换到Mel域，等分10份，再转回到 正常的时域</p>
+</li>
+<li><p>We don’t have the frequency resolution required to put filters at the exact points calculated above, so we need to round those frequencies to the nearest FFT bin. This process does not affect the accuracy of the features. To convert the frequncies to fft bin numbers we need to know the FFT size and the sample rate</p>
+<ol start="4">
+<li>We can see that the final filterbank finishes at bin 256, which corresponds to 8kHz with a 512 point FFT size.</li>
+<li><img src="C:%5CUsers%5Cwangj%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1568909334929.png" alt="1568909334929"></li>
+</ol>
+<p><img src="http://practicalcryptography.com/media/miscellaneous/files/10_filt_melfb.png" alt="Plot of 10 filter Mel Filterbank"></p>
+</li>
+</ol>
+</li>
+<li><p>对24个子带求对数，对数的作用普遍认为有两个，第一个就是对压缩频谱的动态范围，第二个就是使得频域的卷积信号变成加性，通过筛选特征系数，（相当于进行了一次低通滤波），将声源激励和声道信号区分开来。</p>
+<p>以上可以几个流程可以总结为式子为：<br>$$<br>S_m(k)=ln(\sum_{k=0}^{N-1}|X(k)|^2H_m(k)),0&lt;=m&lt;=M<br>$$</p>
+</li>
+<li><p>DCT的目的：</p>
+<ol>
+<li>为去除不同维度信号间的相关性，将信号映射到低纬度的向量空间，运用孤立向量减小特征参数间的维度，以减少运算时间。<strong>对M个对数能量谱进行离散余弦变换（Discrete Cosine Transform，DCT）</strong>，则S（m）经DCT变换后，得到MFCC特征参数</li>
+<li>我的看法是：相当于做了IFFT变换，从频域进入伪频域，（单位是时间），提取前面的几个系数</li>
+</ol>
+</li>
+</ol>
+<p>差分特性（Delta and Delta-Delta）</p>
+<p>：通常也被称为差分（Differential）和加速度（acceleration）系数。MFCC特征向量仅仅描述了单帧的功率谱包络，但是仍有很多的信息保存在动态特征中。通常取12个系数，如果加了一个动态特征就是24为特征。</p>
+<p>注：但是到底要不要丢掉第一维特征，一直没有一个统一的说法，需要继续测试。</p>
+<p>为了继续去计算delta系数，公式为：$d_t = \frac{\sum_{n=1}^N n(c_{t+n}-c_{t-n})}{2\sum_{n=1}^{N}n^2}$</p>
+<p>$d_t$是一阶差分系数，t代表帧，通常来首N取为2。Delta-Delta (Acceleration) coefficients are calculated in the same way, but they are calculated from the deltas, not the今天系数</p>
+]]></content>
+      <tags>
+        <tag>MFCC 语音识别</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>my first blog</title>
+    <url>/2019/10/29/my-first-blog/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2019/10/29/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+]]></content>
+  </entry>
+</search>
