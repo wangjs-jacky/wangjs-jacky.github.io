@@ -1,6 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>sklearn.linear_model.LogisticRegression参数说明</title>
+    <url>/2019/11/02/sklean-linear-model-LogisticRegression/</url>
+    <content><![CDATA[<h1 id="sklearnlinear_modellogisticregression参数说明"><a class="markdownIt-Anchor" href="#sklearnlinear_modellogisticregression参数说明"></a> sklearn.linear_model.LogisticRegression参数说明</h1>
+<p>直接拷贝博文： <a href="https://www.cnblogs.com/wjq-Law/p/9799220.html" target="_blank" rel="noopener">https://www.cnblogs.com/wjq-Law/p/9799220.html</a></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">LogisticRegression(penalty=<span class="string">'l2'</span>, dual=<span class="literal">False</span>, </span><br><span class="line">    tol=<span class="number">0.0001</span>, C=<span class="number">1.0</span>, fit_intercept=<span class="literal">True</span>, </span><br><span class="line">    intercept_scaling=<span class="number">1</span>, class_weight=<span class="literal">None</span>, </span><br><span class="line">    random_state=<span class="literal">None</span>, solver=<span class="string">'warn'</span>, max_iter=<span class="number">100</span>,</span><br><span class="line">    multi_class=<span class="string">'warn'</span>, verbose=<span class="number">0</span>, </span><br><span class="line">    warm_start=<span class="literal">False</span>, n_jobs=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>penalty</code>：惩罚项，可为<code>'l1' or 'l2'</code>。<code>'netton-cg', 'sag', 'lbfgs'</code>只支持<code>'l2'</code>。 &gt;</li>
+</ul>
+<blockquote>
+<ol>
+<li><code>'l1'</code>正则化的损失函数不是连续可导的，而<code>'netton-cg', 'sag', 'lbfgs'</code>这三种算法需要损失函数的一阶或二阶连续可导。</li>
+<li>调参时如果主要是为了解决过拟合，选择<code>'l2'</code>正则化就够了。若选择<code>'l2'</code>正则化还是过拟合，可考虑<code>'l1'</code>正则化。</li>
+<li>若模型特征非常多，希望一些不重要的特征系数归零，从而让模型系数化的话，可使用<code>'l1'</code>正则化。</li>
+</ol>
+</blockquote>
+<ul>
+<li><code>dual</code>：选择目标函数为原始形式还是对偶形式。</li>
+</ul>
+<blockquote>
+<p>将原始函数等价转化为一个新函数，该新函数称为对偶函数。对偶函数比原始函数更易于优化。</p>
+</blockquote>
+<ul>
+<li><code>tol</code>：优化算法停止的条件。当迭代前后的函数差值小于等于tol时就停止。</li>
+<li><code>C</code>：正则化系数。其越小，正则化越强。</li>
+<li><code>fit_intercept</code>：选择逻辑回归模型中是否会有常数项bb。</li>
+<li><code>intercept_scaling</code>：</li>
+<li><code>class_weight</code>：用于标示分类模型中各种类型的权重，<code>{class_label: weight} or 'balanced'</code>。</li>
+</ul>
+<blockquote>
+<ol>
+<li><code>'balanced'</code>：类库根据训练样本量来计算权重。某种类型的样本量越多，则权重越低。</li>
+<li>若误分类代价很高，比如对合法用户和非法用户进行分类，可适当提高非法用户的权重。</li>
+<li>样本高度失衡的。如合法用户9995条，非法用户5条，可选择<code>'balanced'</code>，让类库自动提高非法用户样本的权重。</li>
+</ol>
+</blockquote>
+<ul>
+<li>
+<p><code>random_state</code>：随机数种子。</p>
+</li>
+<li>
+<p><code>solver</code>：逻辑回归损失函数的优化方法。</p>
+</li>
+</ul>
+<blockquote>
+<ol>
+<li><code>'liblinear'</code>：使用坐标轴下降法来迭代优化损失函数。</li>
+<li><code>'lbfgs'</code>：拟牛顿法的一种。利用损失函数二阶导数矩阵即海森矩阵来迭代优化损失函数。</li>
+<li><code>'newton-cg'</code>：牛顿法的一种。同上。</li>
+<li><code>'sag'</code>：随机平均梯度下降。每次迭代仅仅用一部分的样本来计算梯度，适合于样本数据多的时候。</li>
+<li>多元逻辑回归有OvR(one-vs-rest)和MvM(many-vs-many)两种，而MvM一般比OvR分类相对准确一些。但是，<code>'liblinear'</code>只支持OvR。</li>
+</ol>
+</blockquote>
+<ul>
+<li>
+<p><code>max_iter</code>：优化算法的迭代次数。</p>
+</li>
+<li>
+<p><code>multi_class</code>：<code>'ovr' or 'multinomial'</code>。<code>'multinomial'</code>即为MvM。</p>
+</li>
+</ul>
+<blockquote>
+<ol>
+<li>若是二元逻辑回归，二者区别不大。</li>
+<li>对于MvM，若模型有T类，每次在所有的T类样本里面选择两类样本出来，把所有输出为该两类的样本放在一起，进行二元回归，得到模型参数，一共需要T(T-1)/2次分类。</li>
+</ol>
+</blockquote>
+<ul>
+<li><code>verbose</code>：控制是否print训练过程。</li>
+<li><code>warm_start</code>： 是否使用之前的解决方法作为初始拟合。</li>
+<li><code>n_jobs</code>：用cpu的几个核来跑程序。</li>
+</ul>
+<h1 id="sklearnlinear_modellogisticregressioncv"><a class="markdownIt-Anchor" href="#sklearnlinear_modellogisticregressioncv"></a> sklearn.linear_model.LogisticRegressionCV</h1>
+<ul>
+<li>相比于<code>LogisticRegression</code>，<code>LogisticRegressionCV</code>使用交叉验证来选择正则化系数C。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>sklearn</category>
+        <category>Linear_model</category>
+      </categories>
+      <tags>
+        <tag>sklearn代码</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Logistic-回归</title>
     <url>/2019/11/01/Logistic-%E5%9B%9E%E5%BD%92/</url>
     <content><![CDATA[<h1 id="线性回归的非线性映射"><a class="markdownIt-Anchor" href="#线性回归的非线性映射"></a> 线性回归的非线性映射</h1>
