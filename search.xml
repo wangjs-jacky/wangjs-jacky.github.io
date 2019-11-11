@@ -619,21 +619,21 @@ s.t.\ \xi_i \ge 0
 <p>拆分策略：</p>
 <ol>
 <li>
-<p>One vs one : N(N-1)/2【投票】</p>
+<p><strong>One vs one : N(N-1)/2</strong> 【投票】</p>
 </li>
 <li>
-<p>One vs Rest: N【结果比对：一正余负】</p>
+<p><strong>One vs Rest: N</strong> 【结果比对：一正余负】</p>
 </li>
 </ol>
 <img style="zoom:67%;" data-src="https://cdn.jsdelivr.net/gh/wangjs-jacky/testpic/img_temp/20191111091213.png" class="lozad">
 <blockquote>
 <p>说明：当类别N很大，尽管one vs one 需要训练的分类器多，但是每次训练的时候，只需要把两个类别的训练数据取出来生成模型。判断的时候将单个样本的数据输入训练好的分类器进行**投票。**故反而比OvR速度要快很多。</p>
-<p>**识别率上面：**要看样本而定，基本差不多。</p>
+<p><strong>识别率上面：</strong> 要看样本而定，基本差不多。</p>
 </blockquote>
 <ol start="3">
-<li>Many vs Many</li>
+<li><strong>Many vs Many</strong></li>
 </ol>
-<p>缺点：上面两个决策思路，正类总是只是一个分类。而 MvM 的思路上将 OvR 再进行扩展将多个分类视作正类</p>
+<p>缺点：上面两个决策思路，正类总是只是一个分类。而 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>M</mi><mi>v</mi><mi>M</mi></mrow><annotation encoding="application/x-tex">MvM</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span></span></span></span> 的思路上将 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mi>v</mi><mi>R</mi></mrow><annotation encoding="application/x-tex">OvR</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span></span></span></span> 再进行扩展将多个分类视作正类</p>
 <p><strong>核心：编码思想引入类别拆分。</strong></p>
 <img style="zoom:67%;" data-src="https://cdn.jsdelivr.net/gh/wangjs-jacky/testpic/img_temp/20191111091833.png" class="lozad">
 <p>注意观察：测试示例与<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>C</mi><mn>3</mn></msub></mrow><annotation encoding="application/x-tex">C_3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>进行比较，发现<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">f2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord">2</span></span></span></span>分类器分类错了，但是最后欧氏距离依然最小。则说明MvM有一丝的容错性。</p>
@@ -650,7 +650,7 @@ s.t.\ \xi_i \ge 0
 ]]></content>
       <categories>
         <category>西瓜书</category>
-        <category>SVM</category>
+        <category>第六章SVM</category>
       </categories>
       <tags>
         <tag>西瓜书</tag>
@@ -1592,7 +1592,7 @@ h(x)={} &amp; E[T(y|x)]\\
 ]]></content>
       <categories>
         <category>西瓜书</category>
-        <category>第三章：线性模型</category>
+        <category>第三章线性模型</category>
       </categories>
       <tags>
         <tag>西瓜书</tag>
@@ -1701,7 +1701,7 @@ X = (x_i,1)
 <img style="zoom: 67%;" data-src="https://cdn.jsdelivr.net/gh/wangjs-jacky/testpic/img_temp/20191101202859.png" class="lozad">]]></content>
       <categories>
         <category>西瓜书</category>
-        <category>第三章：线性模型</category>
+        <category>第三章线性模型</category>
       </categories>
       <tags>
         <tag>西瓜书</tag>
