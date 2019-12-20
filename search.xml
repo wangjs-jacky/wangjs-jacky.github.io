@@ -1,6 +1,489 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>git教程</title>
+    <url>/2019/12/20/git%E6%95%99%E7%A8%8B/</url>
+    <content><![CDATA[<h1 id="git的背景"><a class="markdownIt-Anchor" href="#git的背景"></a> Git的背景</h1>
+<ul>
+<li>
+<p>Git是什么？</p>
+<ul>
+<li>目前世界上最先进的<strong>分布式版本控制系统</strong></li>
+</ul>
+</li>
+<li>
+<p>版本控制</p>
+<table>
+<thead>
+<tr>
+<th>现实情况</th>
+<th>希望做到的样子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img alt data-src="https://cdn.jsdelivr.net/gh/wangjs-jacky/testpic/img_temp/20191220161835.png" class="lozad"></td>
+<td><img alt data-src="https://cdn.jsdelivr.net/gh/wangjs-jacky/testpic/img_temp/20191220162349.png" class="lozad"></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>集中式vs分布式</p>
+<ul>
+<li>集中式：<strong>版本库</strong>是集中存放在中央服务器的，而干活的时候，用的都是自己的电脑，所以要先从中央服务器取得最新的版本，然后开始干活，干完活了，再把自己的活推送给中央服务器。中央服务器就好比是一个图书馆，你要改一本书，必须先从图书馆借出来，然后回到家自己改，改完了，再放回图书馆。</li>
+<li>分布式：每个人电脑里都有完整的<strong>版本库</strong>，不必联网</li>
+</ul>
+</li>
+<li>
+<p>Git的诞生</p>
+<ul>
+<li>Linus创建开源的Linux，志愿者提供源代码</li>
+<li>Linus 抵制CVS和SVN等集中式版本控制系统，缺点必须联网才能使用。稍好一点的商业版本控制需要付费，也不开源。</li>
+<li>2002年，Linux发展十年，Linus无法通过手工方式管理，选择商业版本控制软件系统BitKeeper</li>
+<li>2005年，两者谈崩，一个月内用C语言写了一个分布式版本控制系统Git</li>
+<li>2008年，Github网站上线，为开源项目免费提供Git存储。</li>
+</ul>
+</li>
+</ul>
+<h1 id="git-基础教程"><a class="markdownIt-Anchor" href="#git-基础教程"></a> git 基础教程</h1>
+<h2 id="本地端的版本管理流程"><a class="markdownIt-Anchor" href="#本地端的版本管理流程"></a> 本地端的版本管理流程</h2>
+<ul>
+<li>
+<p>创建版本库</p>
+<ul>
+<li>第一步：本地创建一个目录</li>
+<li>第二步：<code>git init</code>可以让一个目录变成可以被<code>git</code>管理的文件夹
+<ul>
+<li>多出一个<code>.git</code>文件</li>
+<li>目录中的每一个文件都能被<code>Git</code>跟踪管理
+<ul>
+<li>传统的txt，或者code等可以被跟踪到内容（第几行插入内容是…）</li>
+<li>二进制文件只能跟踪文件的大小变化（word就是个二进制文件）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>大象放到冰箱有3步，而Git只有<code>两步</code></p>
+<ul>
+<li>
+<p><code>git add readme.txt</code></p>
+<ul>
+<li>这应该没有消息（代表正确）</li>
+</ul>
+</li>
+<li>
+<p><code>git commit -m &quot;&quot;</code></p>
+<ul>
+<li>这步才会提醒你具体修改的文件内容</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git commit -m &quot;wrote a readme file&quot;</span><br><span class="line">[master (root-commit) eaadf4e] wrote a readme file</span><br><span class="line"> 1 file changed, 2 insertions(+)</span><br><span class="line"> create mode 100644 readme.txt</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>查看缓存区的情况：<code>git status</code></p>
+<ul>
+<li>
+<p>概念说明：<code>工作区</code>+<code>版本库</code></p>
+<p><img alt data-src="https://cdn.jsdelivr.net/gh/wangjs-jacky/testpic/img_temp/20191220164227.png" class="lozad"></p>
+</li>
+<li>
+<p><code>git status</code>会提示三个类的内容</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes not staged <span class="keyword">for</span> commit:</span><br><span class="line">  (use <span class="string">"git add &lt;file&gt;..."</span> to update what will be committed)</span><br><span class="line">  (use <span class="string">"git checkout -- &lt;file&gt;..."</span> to discard changes <span class="keyword">in</span> working directory)</span><br><span class="line"></span><br><span class="line">Untracked files:</span><br><span class="line">  (use <span class="string">"git add &lt;file&gt;..."</span> to include <span class="keyword">in</span> what will be committed)</span><br><span class="line"></span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use <span class="string">"git reset HEAD &lt;file&gt;..."</span> to unstage)</span><br><span class="line">  </span><br><span class="line">nothing to commit, working tree clean</span><br></pre></td></tr></table></figure>
+<ol>
+<li>Untrack的意思是：工作区的内容没有被加入到版本库中</li>
+<li>Changes not staged for commit的意思是：版本库中存着某个文件，现在检测到工作区修改了，接下来的可能操作有两个：
+<ul>
+<li>将修改后的文件 <code>git add</code></li>
+<li>将版本库中的文件撤回到工作区：<code>git checkout --&lt;file&gt;</code></li>
+</ul>
+</li>
+<li>Changes to be committed：提示你去commit再stage中的change<code>git commit-m&quot;&quot;</code></li>
+<li>所有都OK，则显示stage是干净的。<code>working tree clean</code></li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p>小节</p>
+<ul>
+<li>基础语法就只有三个
+<ul>
+<li><code>git add</code></li>
+<li><code>git commit -m&quot;&quot;</code></li>
+<li><code>git status</code></li>
+</ul>
+</li>
+<li>经过以上的操作，就搭建完成了一个本地端的版本管理流程。</li>
+</ul>
+</li>
+</ul>
+<h2 id="进阶场景应用"><a class="markdownIt-Anchor" href="#进阶场景应用"></a> 进阶场景应用</h2>
+<h3 id="span-id-版本切换版本切换span"><a class="markdownIt-Anchor" href="#span-id-版本切换版本切换span"></a> <span id="版本切换">版本切换</span></h3>
+<ul>
+<li>
+<p>假设对<code>readme.txt</code>进行了三次操作，在Git仓库中应有（通过commit区分）：</p>
+<ul>
+<li>
+<p>版本1：wrote a readme file</p>
+  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Git is a version control system.</span><br><span class="line">Git is free software.</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>版本2：add distributed</p>
+  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Git is a distributed version control system.</span><br><span class="line">Git is free software.</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>版本3：append GPL</p>
+  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Git is a distributed version control system.</span><br><span class="line">Git is free software distributed under the GPL.</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>查看文件的修改</p>
+<ul>
+<li>
+<p>每一个comment对应着一个<code>comment id</code>，可以通过<code>git log</code>或<code>git log --pretty=oneline</code>查看对应的ID号</p>
+  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">log</span></span><br><span class="line">commit 1094adb7b9b3807259d8cb349e7df1d4d6477073 (HEAD -&gt; master)</span><br><span class="line">Author: Michael Liao &lt;askxuefeng@gmail.com&gt;</span><br><span class="line">Date:   Fri May 18 21:06:15 2018 +0800</span><br><span class="line"></span><br><span class="line">    append GPL</span><br><span class="line"></span><br><span class="line">commit e475afc93c209a690c39c13a46716e8fa000c366</span><br><span class="line">Author: Michael Liao &lt;askxuefeng@gmail.com&gt;</span><br><span class="line">Date:   Fri May 18 21:03:36 2018 +0800</span><br><span class="line"></span><br><span class="line">    add distributed</span><br><span class="line"></span><br><span class="line">commit eaadf4e385e865d25c48e7ca9c8395c3f7dfaef0</span><br><span class="line">Author: Michael Liao &lt;askxuefeng@gmail.com&gt;</span><br><span class="line">Date:   Fri May 18 20:59:18 2018 +0800</span><br><span class="line"></span><br><span class="line">    wrote a readme file</span><br><span class="line"></span><br><span class="line">$ git <span class="built_in">log</span> --pretty=oneline</span><br><span class="line"></span><br><span class="line">1094adb7b9b3807259d8cb349e7df1d4d6477073 (HEAD -&gt; master) append GPL</span><br><span class="line">e475afc93c209a690c39c13a46716e8fa000c366 add distributed</span><br><span class="line">eaadf4e385e865d25c48e7ca9c8395c3f7dfaef0 wrote a readme file</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>HEAD指向的版本就是当前版本，因此，Git允许我们在版本的历史之间穿梭</p>
+  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">┌────┐</span><br><span class="line">│HEAD│</span><br><span class="line">└────┘</span><br><span class="line">   │</span><br><span class="line">   └──&gt; ○ append GPL</span><br><span class="line">        │</span><br><span class="line">        ○ add distributed</span><br><span class="line">        │</span><br><span class="line">        ○ wrote a readme file</span><br></pre></td></tr></table></figure>
+<ul>
+<li>使用<code>git reset--hard Head^</code>切换上一版本</li>
+<li>使用<code>git reset--hard Head^^</code>切换上上一版本</li>
+<li>使用<code>git reset--hard ID</code>切换指定ID版本</li>
+</ul>
+  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git reset --hard 1094a <span class="comment">#只需要输入ID中的前几位即可</span></span><br><span class="line">HEAD is now at 83b0afe append GPL</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">┌────┐</span><br><span class="line">│HEAD│</span><br><span class="line">└────┘</span><br><span class="line">   │</span><br><span class="line">   │    ○ append GPL</span><br><span class="line">   │    │</span><br><span class="line">   └──&gt; ○ add distributed</span><br><span class="line">        │</span><br><span class="line">        ○ wrote a readme file</span><br></pre></td></tr></table></figure>
+<pre><code>  &gt; 注：一旦切换后，当前的版本就无法通过`git log`查询，需要通过`git reflog`查看命令历史。
+</code></pre>
+</li>
+</ul>
+<h3 id="撤回操作"><a class="markdownIt-Anchor" href="#撤回操作"></a> 撤回操作</h3>
+<p>一般而言，我们会对三种场景中需要撤回操作</p>
+<ul>
+<li>恢复工作区中的修改：最简单直接<code>git checkout --file</code></li>
+<li>恢复缓存区的修改：
+<ul>
+<li>将缓存区的修改撤销掉：<code>git reset HEAD &lt;file&gt;</code></li>
+<li>再还原原本的缓存区还原原本的工作区：上步</li>
+</ul>
+</li>
+<li>恢复版本库：需要参照上节<a href="#%E7%89%88%E6%9C%AC%E5%88%87%E6%8D%A2">版本切换内容</a></li>
+</ul>
+<h3 id="管理修改"><a class="markdownIt-Anchor" href="#管理修改"></a> 管理修改</h3>
+<ul>
+<li>
+<p>正确的做法</p>
+<p>第一次修改 -&gt; <code>git add</code> -&gt; 第二次修改 -&gt; <code>git add</code> -&gt; <code>git commit</code></p>
+</li>
+<li>
+<p>比较差异</p>
+<ul>
+<li><code>git diff HEAD -- &lt;file&gt;</code>:比较工作区与版本库中的差别</li>
+<li><code>git diff filename</code>:比较工作区和暂存区</li>
+</ul>
+</li>
+</ul>
+<h3 id="删除文件"><a class="markdownIt-Anchor" href="#删除文件"></a> 删除文件</h3>
+<ul>
+<li><code>git rm:</code>同时删除<code>版本库</code>和<code>本地</code>的文件</li>
+<li>等同操作：先<code>rm &lt;本地file&gt;</code>，再<code>git add &lt;file&gt;</code>等同于<code>git rm &lt;file&gt;</code></li>
+<li>问题：
+<ul>
+<li>如何删除版本库中的文件，而不修改工作区的文件</li>
+<li>如何查看工作区的文件</li>
+<li>关联操作不是很会，还有就是SSH是个什么东西</li>
+</ul>
+</li>
+</ul>
+<h2 id="远程仓库的使用"><a class="markdownIt-Anchor" href="#远程仓库的使用"></a> 远程仓库的使用</h2>
+<ul>
+<li>
+<p>SSH是什么？</p>
+<ul>
+<li>默认origin是库的名称</li>
+</ul>
+</li>
+<li>
+<p>有关远程库的一些基本使用</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 列出已经存在的远程仓库</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git remote</span></span><br><span class="line">origin </span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 列出远程仓库的详细信息，在别名后面列出URL地址</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git remote -v</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git remote --verbose</span></span><br><span class="line">origin https://github.com/kekec/Test.git (fetch)</span><br><span class="line">origin https://github.com/kekec/Test.git (push)</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 添加远程仓库</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git remote add &lt;远程仓库的别名&gt; &lt;远程仓库的URL地址&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 修改远程仓库的别名</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git remote rename &lt;原远程仓库的别名&gt; &lt;新的别名&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除指定名称的远程仓库</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git remote rm &lt;远程仓库的别名&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 修改/显示远程仓库的 URL 地址</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git remote <span class="built_in">set</span>-url &lt;远程仓库的别名&gt; &lt;新的远程仓库URL地址&gt;</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git remoter get-url &lt;远程仓库的别名&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>Github的地址问题：</p>
+<ul>
+<li>Git支持多种协议，默认的<code>git://</code>使用ssh(原生<code>git</code>协议速度最快)，但也可以使用<code>https</code>等其他协议。
+<ul>
+<li><code>https://github.com/michaelliao/gitskills.git</code></li>
+<li><code>git@github.com:michaelliao/learngit.git</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="先有本地库再创建新的库将两者关联"><a class="markdownIt-Anchor" href="#先有本地库再创建新的库将两者关联"></a> 先有本地库，再创建新的库，将两者关联</h3>
+<ol>
+<li>
+<p><code>git init</code></p>
+</li>
+<li>
+<p><code>git remote add origin https://github.com/wangjs-jacky/Jupyter-notebook.git</code></p>
+</li>
+<li>
+<p>第一次推送master的信息<code>git push -u origin master</code></p>
+<p>之后的提交：<code>git push origin master</code></p>
+</li>
+</ol>
+<h3 id="先有远程库再clone到本地"><a class="markdownIt-Anchor" href="#先有远程库再clone到本地"></a> 先有远程库，再clone到本地</h3>
+<ul>
+<li>直接在桌面：<code>git clone https://github.com/wangjs-jacky/Jupyter-notebook.git</code> `</li>
+</ul>
+]]></content>
+  </entry>
+  <entry>
+    <title>python-matplotlib案例</title>
+    <url>/2019/12/19/python-matplotlib%E6%A1%88%E4%BE%8B/</url>
+    <content><![CDATA[<table>
+<thead>
+<tr>
+<th style="text-align:left">涉及知识点</th>
+<th style="text-align:center">示例图片</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><a href="#%E5%9F%BA%E7%A1%80%E7%BB%98%E5%9B%BE">基础绘图查阅：</a><br>1. <code>plot</code>的基础用法<br>2. 坐标轴的刻度绘制<code>plt.xticks</code><br>3. 坐标轴的移动 <code>ax.spines</code><br>4.坐标轴的范围 <code>plt.xlim(x.min()*1.1)</code><br>5.循环设置字体的大小：<code>plt.gca.get_xticklabels.set_fontsize(16)</code><br>6.标签的绘制 <code>plt.legend</code><br>7. <code>annotation</code> 的用法</td>
+<td style="text-align:center"><img style="zoom:;" data-src="https://cdn.jsdelivr.net/gh/wangjs-jacky/testpic/img_temp/20191219193928.png" class="lozad"></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="#%E8%A6%86%E7%9B%96%E5%87%BD%E6%95%B0">覆盖函数：</a><br>1. <code>full_between(x的范围,下限,上限,facecolor,alpha)</code></td>
+<td style="text-align:center"><img style="zoom:80%;" data-src="https://cdn.jsdelivr.net/gh/wangjs-jacky/testpic/img_temp/20191219214003.png" class="lozad"></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="#%E7%AD%89%E9%AB%98%E7%BA%BF%E5%9B%BE">等高线图：</a><code>contour</code><br>1. 可以控制字是否在线上<br>2. 等高线数字的位置控制<br>3.登高线的密度<br>4.<code>clabel</code>的使用</td>
+<td style="text-align:center"><img style="zoom: 67%;" data-src="https://cdn.jsdelivr.net/gh/wangjs-jacky/testpic/img_temp/20191219220020.png" class="lozad"></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="#Scatter">Scatter基础用法</a>：<br>1. 控制圆的大小和颜色<br>2. 透明度：<code>alpha</code></td>
+<td style="text-align:center"><img style="zoom:80%;" data-src="https://cdn.jsdelivr.net/gh/wangjs-jacky/testpic/img_temp/20191219193341.png" class="lozad"></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h1 id="span-id-基础绘图基础绘图查阅span"><a class="markdownIt-Anchor" href="#span-id-基础绘图基础绘图查阅span"></a> <span id="基础绘图">基础绘图查阅</span></h1>
+<p><img alt data-src="https://cdn.jsdelivr.net/gh/wangjs-jacky/testpic/img_temp/20191219193928.png" class="lozad"></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt </span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np </span><br><span class="line"></span><br><span class="line">X = np.linspace(-np.pi, np.pi, <span class="number">200</span>, endpoint=<span class="literal">True</span>)</span><br><span class="line">C, S = np.cos(X), np.sin(X)</span><br><span class="line"></span><br><span class="line">plt.figure(figsize=(<span class="number">20</span>, <span class="number">6</span>), dpi=<span class="number">80</span>)</span><br><span class="line">plt.subplot(<span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>)</span><br><span class="line"><span class="comment"># 使用默认设置画出余弦曲线</span></span><br><span class="line">plt.plot(X, C)</span><br><span class="line"><span class="comment"># 使用默认设置画出正弦曲线</span></span><br><span class="line">plt.plot(X, S)</span><br><span class="line"></span><br><span class="line">plt.subplot(<span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>)</span><br><span class="line"><span class="comment"># 移动坐标轴边线</span></span><br><span class="line"><span class="comment"># 坐标轴总共有四个连线，我们通过设置透明色隐藏上方和右方的边线</span></span><br><span class="line"><span class="comment"># 通过 set_position() 移动左侧和下侧的边线</span></span><br><span class="line"><span class="comment"># 通过 set_ticks_position() 设置坐标轴的刻度线的显示位置</span></span><br><span class="line">ax = plt.gca()  <span class="comment"># gca 代表当前坐标轴，即 'get current axis'</span></span><br><span class="line">ax.spines[<span class="string">'right'</span>].set_color(<span class="string">'none'</span>)</span><br><span class="line">ax.spines[<span class="string">'top'</span>].set_color(<span class="string">'none'</span>)</span><br><span class="line">ax.xaxis.set_ticks_position(<span class="string">'bottom'</span>)</span><br><span class="line">ax.spines[<span class="string">'bottom'</span>].set_position((<span class="string">'data'</span>,<span class="number">0</span>))</span><br><span class="line">ax.yaxis.set_ticks_position(<span class="string">'left'</span>)</span><br><span class="line">ax.spines[<span class="string">'left'</span>].set_position((<span class="string">'data'</span>,<span class="number">0</span>))</span><br><span class="line"><span class="comment"># 设置坐标刻度的字体大小，增加半透明背景</span></span><br><span class="line"><span class="keyword">for</span> label <span class="keyword">in</span> ax.get_xticklabels() + ax.get_yticklabels():</span><br><span class="line">    label.set_fontsize(<span class="number">16</span>)</span><br><span class="line">    label.set_bbox(dict(facecolor=<span class="string">'white'</span>, edgecolor=<span class="string">'None'</span>, alpha=<span class="number">0.65</span>))</span><br><span class="line">    </span><br><span class="line"><span class="comment"># 设置坐标轴的长度</span></span><br><span class="line">plt.xlim(X.min() * <span class="number">1.1</span>, X.max() * <span class="number">1.1</span>)</span><br><span class="line">plt.ylim(C.min() * <span class="number">1.1</span>, C.max() * <span class="number">1.1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置坐标轴的刻度和标签</span></span><br><span class="line">plt.xticks((-np.pi, -np.pi/<span class="number">2</span>, np.pi/<span class="number">2</span>, np.pi),</span><br><span class="line">          label=(<span class="string">r'$-\pi$'</span>, <span class="string">r'$-\pi/2$'</span>, <span class="string">r'$+\pi/2$'</span>, <span class="string">r'$+\pi$'</span>))</span><br><span class="line">plt.yticks([<span class="number">-1</span>, <span class="number">-0.5</span>, <span class="number">0</span>, <span class="number">0.5</span>, <span class="number">1</span>])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 画出余弦曲线，并设置线条颜色，宽度，样式</span></span><br><span class="line">plt.plot(X, C, color=<span class="string">"blue"</span>, linewidth=<span class="number">2.0</span>, linestyle=<span class="string">"-"</span>,label=<span class="string">'cos(x)'</span>)</span><br><span class="line"><span class="comment"># 画出正弦曲线，并设置线条颜色，宽度，样式</span></span><br><span class="line">plt.plot(X, S, color=<span class="string">"red"</span>, linewidth=<span class="number">2.0</span>, linestyle=<span class="string">"-"</span>,label=<span class="string">'sin(x)'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在左上角添加铭牌</span></span><br><span class="line">plt.legend(loc=<span class="string">'upper left'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在坐标轴上标示相应的点</span></span><br><span class="line">t = <span class="number">2</span> * np.pi / <span class="number">3</span></span><br><span class="line"><span class="comment"># 画出 cos(t) 所在的点在 X 轴上的位置，即画出 (t, 0) -&gt; (t, cos(t)) 线段，使用虚线</span></span><br><span class="line">plt.plot([t, t], [<span class="number">0</span>, np.cos(t)], color=<span class="string">'blue'</span>, linewidth=<span class="number">1.5</span>, linestyle=<span class="string">"--"</span>)</span><br><span class="line"><span class="comment"># 画出标示的坐标点，即在 (t, cos(t)) 处画一个大小为 50 的蓝色点</span></span><br><span class="line">plt.scatter([t, ], [np.cos(t), ], <span class="number">50</span>, color=<span class="string">'blue'</span>)</span><br><span class="line"><span class="comment"># 画出标示点的值，即 cos(t) 的值</span></span><br><span class="line">plt.annotate(<span class="string">r'$cos(\frac&#123;2\pi&#125;&#123;3&#125;)=-\frac&#123;1&#125;&#123;2&#125;$'</span>,</span><br><span class="line">             xy=(t, np.cos(t)), xycoords=<span class="string">'data'</span>,</span><br><span class="line">             xytext=(<span class="number">-90</span>, <span class="number">-50</span>), textcoords=<span class="string">'offset points'</span>, fontsize=<span class="number">16</span>,</span><br><span class="line">             arrowprops=dict(arrowstyle=<span class="string">"-&gt;"</span>, connectionstyle=<span class="string">"arc3,rad=.2"</span>))</span><br><span class="line"><span class="comment"># 画出 sin(t) 所在的点在 X 轴上的位置，即画出 (t, 0) -&gt; (t, sin(t)) 线段，使用虚线</span></span><br><span class="line">plt.plot([t, t],[<span class="number">0</span>, np.sin(t)], color=<span class="string">'red'</span>, linewidth=<span class="number">1.5</span>, linestyle=<span class="string">"--"</span>)</span><br><span class="line"><span class="comment"># 画出标示的坐标点，即在 (t, sin(t)) 处画一个大小为 50 的红色点</span></span><br><span class="line">plt.scatter([t, ],[np.sin(t), ], <span class="number">50</span>, color=<span class="string">'red'</span>)</span><br><span class="line"><span class="comment"># 画出标示点的值，即 sin(t) 的值</span></span><br><span class="line">plt.annotate(<span class="string">r'$sin(\frac&#123;2\pi&#125;&#123;3&#125;)=\frac&#123;\sqrt&#123;3&#125;&#125;&#123;2&#125;$'</span>,</span><br><span class="line">             xy=(t, np.sin(t)), xycoords=<span class="string">'data'</span>,</span><br><span class="line">             xytext=(+<span class="number">10</span>, +<span class="number">30</span>), textcoords=<span class="string">'offset points'</span>, fontsize=<span class="number">16</span>,</span><br><span class="line">             arrowprops=dict(arrowstyle=<span class="string">"-&gt;"</span>, connectionstyle=<span class="string">"arc3,rad=.2"</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 把结果显示在屏幕上</span></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<h1 id="span-idscatterscatter基础用法span"><a class="markdownIt-Anchor" href="#span-idscatterscatter基础用法span"></a> <span id="Scatter">Scatter基础用法</span></h1>
+<img style="zoom:67%;" data-src="https://cdn.jsdelivr.net/gh/wangjs-jacky/testpic/img_temp/20191219193341.png" class="lozad">
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment"># Fixing random state for reproducibility</span></span><br><span class="line">np.random.seed(<span class="number">19680801</span>)</span><br><span class="line"></span><br><span class="line">N = <span class="number">50</span></span><br><span class="line">x = np.random.rand(N)</span><br><span class="line">y = np.random.rand(N)</span><br><span class="line">colors = np.random.rand(N)</span><br><span class="line">area = (<span class="number">30</span> * np.random.rand(N))**<span class="number">2</span>  <span class="comment"># 0 to 15 point radii</span></span><br><span class="line"></span><br><span class="line">plt.scatter(x, y, s=area, c=colors, alpha=<span class="number">0.5</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<h1 id="span-id覆盖函数覆盖函数span"><a class="markdownIt-Anchor" href="#span-id覆盖函数覆盖函数span"></a> <span id="覆盖函数">覆盖函数</span></h1>
+<img style="zoom: 67%;" data-src="https://cdn.jsdelivr.net/gh/wangjs-jacky/testpic/img_temp/20191219214003.png" class="lozad">
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">n = <span class="number">256</span></span><br><span class="line">X = np.linspace(-np.pi,np.pi,n,endpoint=<span class="literal">True</span>)</span><br><span class="line">Y = np.sin(<span class="number">2</span>*X)</span><br><span class="line"></span><br><span class="line">plt.plot(X,Y+<span class="number">1</span>,color=<span class="string">'b'</span>,alpha=<span class="number">0.5</span>)</span><br><span class="line">plt.fill_between(X,<span class="number">1</span>,Y+<span class="number">1</span>,color=<span class="string">'blue'</span>,alpha=<span class="number">1.00</span>)</span><br><span class="line"></span><br><span class="line">plt.plot(X,Y<span class="number">-1</span>,color=<span class="string">'b'</span>,alpha=<span class="number">0.5</span>)</span><br><span class="line">plt.fill_between(X,<span class="number">-1</span>,Y<span class="number">-1</span>,(Y<span class="number">-1</span>)&gt;<span class="number">-1</span>,color=<span class="string">'blue'</span>,alpha=<span class="number">.25</span>)</span><br><span class="line">plt.fill_between(X,<span class="number">-1</span>,Y<span class="number">-1</span>,(Y<span class="number">-1</span>)&lt;<span class="number">-1</span>,color=<span class="string">'red'</span>,alpha=<span class="number">.25</span>)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<h1 id="span-id等高线图contour-简易上手教span"><a class="markdownIt-Anchor" href="#span-id等高线图contour-简易上手教span"></a> <span id="等高线图">Contour ：简易上手教</span></h1>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.cm <span class="keyword">as</span> cm</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">delta = <span class="number">0.025</span></span><br><span class="line">x = np.arange(<span class="number">-3.0</span>, <span class="number">3.0</span>, delta)</span><br><span class="line">y = np.arange(<span class="number">-2.0</span>, <span class="number">2.0</span>, delta)</span><br><span class="line">X, Y = np.meshgrid(x, y)</span><br><span class="line">Z1 = np.exp(-X**<span class="number">2</span> - Y**<span class="number">2</span>)</span><br><span class="line">Z2 = np.exp(-(X - <span class="number">1</span>)**<span class="number">2</span> - (Y - <span class="number">1</span>)**<span class="number">2</span>)</span><br><span class="line">Z = (Z1 - Z2) * <span class="number">2</span></span><br></pre></td></tr></table></figure>
+<p>生成一个简单的带lable的contour图（线图）使用默认的颜色。clabel 中的 inline 语法控制着是否这个label是画在线上面，如果画在线里面这需要控制字体与线之间的距离，inline = 0 代表线与文字共存。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">fig, ax = plt.subplots()</span><br><span class="line">CS = ax.contour(X, Y, Z)</span><br><span class="line">ax.clabel(CS, inline=<span class="number">1</span>, fontsize=<span class="number">10</span>)</span><br><span class="line">ax.set_title(<span class="string">'Simplest default with labels'</span>)</span><br></pre></td></tr></table></figure>
+<img style="zoom: 80%;" data-src="https://cdn.jsdelivr.net/gh/wangjs-jacky/testpic/img_temp/20191219215433.png" class="lozad">
+<p>除此以外，还可以控制label的位置，手工位置：<code>manual_location</code></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">fig, ax = plt.subplots()</span><br><span class="line">CS = ax.contour(X, Y, Z)</span><br><span class="line">manual_locations = [(<span class="number">-1</span>, <span class="number">-1.4</span>), (<span class="number">-0.62</span>, <span class="number">-0.7</span>), (<span class="number">-2</span>, <span class="number">0.5</span>), (<span class="number">1.7</span>, <span class="number">1.2</span>), (<span class="number">2.0</span>, <span class="number">1.4</span>), (<span class="number">2.4</span>, <span class="number">1.7</span>)]</span><br><span class="line">ax.clabel(CS, inline=<span class="number">1</span>, fontsize=<span class="number">10</span>, manual=manual_locations)</span><br><span class="line">ax.set_title(<span class="string">'labels at selected locations'</span>)</span><br></pre></td></tr></table></figure>
+<img style="zoom:80%;" data-src="https://cdn.jsdelivr.net/gh/wangjs-jacky/testpic/img_temp/20191219215614.png" class="lozad">
+<p>还可以控制线的个数，这里感觉好像是100-1=99</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">fig, ax = plt.subplots()</span><br><span class="line">CS = ax.contour(X, Y, Z,100)</span><br><span class="line">ax.set_title(&apos;Simplest default with labels&apos;)</span><br></pre></td></tr></table></figure>
+<img style="zoom:80%;" data-src="https://cdn.jsdelivr.net/gh/wangjs-jacky/testpic/img_temp/20191219215812.png" class="lozad">
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">fig, ax = plt.subplots()</span><br><span class="line">CS = ax.contour(X, Y, Z,<span class="number">12</span>,colors = <span class="string">'k'</span>)</span><br><span class="line">ax.clabel(CS, inline=<span class="number">1</span>, fontsize=<span class="number">10</span>)</span><br><span class="line">ax.set_title(<span class="string">'Simplest default with labels'</span>)</span><br></pre></td></tr></table></figure>
+<img style="zoom: 67%;" data-src="https://cdn.jsdelivr.net/gh/wangjs-jacky/testpic/img_temp/20191219220020.png" class="lozad">]]></content>
+      <tags>
+        <tag>matplotlib</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>jupyter-notebook测试</title>
+    <url>/2019/12/18/jupyter-notebook%E6%B5%8B%E8%AF%95/</url>
+    <content><![CDATA[<iframe src="https://nbviewer.jupyter.org/github/wangjs-jacky/Jupyter-notebook/blob/master/chapter02_01_pandas%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8.ipynb" width="100%"height="6300"  scrolling="no" ></iframe>
+]]></content>
+  </entry>
+  <entry>
+    <title>读书笔记《scikit-learn-机器学习常用算法原理及编程实战》第2章Python机器学习软件包</title>
+    <url>/2019/12/18/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E3%80%8Ascikit-learn-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86%E5%8F%8A%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%E3%80%8B%E7%AC%AC2%E7%AB%A0Python%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E8%BD%AF%E4%BB%B6%E5%8C%85/</url>
+    <content><![CDATA[<h1 id="ipython"><a class="markdownIt-Anchor" href="#ipython"></a> Ipython</h1>
+<ul>
+<li>
+<p>ipython中的快捷键</p>
+<table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Ctrl+A</code></td>
+<td>移动光标到最前面</td>
+</tr>
+<tr>
+<td><code>Ctrl+E</code></td>
+<td>移动光标到最末尾</td>
+</tr>
+<tr>
+<td><code>Ctrl+U</code></td>
+<td>删除光标前的内容</td>
+</tr>
+<tr>
+<td><code>Ctrl+K</code></td>
+<td>删除光标后的内容</td>
+</tr>
+<tr>
+<td><code>Ctrl+L</code></td>
+<td>消除显示内容</td>
+</tr>
+<tr>
+<td><code>Crrl+C</code></td>
+<td>中断当前的脚本运行</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>查询命令空间中所有的函数和对象</p>
+  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">In [2]: np.random.rand*?                                                        </span><br><span class="line">np.random.rand</span><br><span class="line">np.random.randint</span><br><span class="line">np.random.randn</span><br><span class="line">np.random.random</span><br><span class="line">np.random.random_integers</span><br><span class="line">np.random.random_sample</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查询命令：<code>??</code></p>
+  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">In [4]: np.random.rand?? </span><br><span class="line">Docstring:</span><br><span class="line">rand(d0, d1, ..., dn)</span><br><span class="line"></span><br><span class="line">Random values <span class="keyword">in</span> a given shape.</span><br><span class="line"></span><br><span class="line">Create an array of the given shape <span class="keyword">and</span> populate it <span class="keyword">with</span></span><br><span class="line">random samples <span class="keyword">from</span> a uniform distribution</span><br><span class="line">over ``[<span class="number">0</span>, <span class="number">1</span>)``.</span><br><span class="line"></span><br><span class="line">Parameters</span><br><span class="line">----------</span><br><span class="line">d0, d1, ..., dn : int, optional</span><br><span class="line">    The dimensions of the returned array, should all be positive.</span><br><span class="line">    If no argument <span class="keyword">is</span> given a single Python float <span class="keyword">is</span> returned.</span><br><span class="line"></span><br><span class="line">Returns</span><br><span class="line">-------</span><br><span class="line">out : ndarray, shape ``(d0, d1, ..., dn)``</span><br><span class="line">    Random values.</span><br><span class="line"></span><br><span class="line">See Also</span><br><span class="line">--------</span><br><span class="line">random</span><br><span class="line"></span><br><span class="line">Notes</span><br><span class="line">-----</span><br><span class="line">This <span class="keyword">is</span> a convenience function. If you want an interface that</span><br><span class="line">takes a shape-tuple <span class="keyword">as</span> the first argument, refer to</span><br><span class="line">np.random.random_sample .</span><br><span class="line"></span><br><span class="line">Examples</span><br><span class="line">--------</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>np.random.rand(<span class="number">3</span>,<span class="number">2</span>)</span><br><span class="line">array([[ <span class="number">0.14022471</span>,  <span class="number">0.96360618</span>],  <span class="comment">#random</span></span><br><span class="line">       [ <span class="number">0.37601032</span>,  <span class="number">0.25528411</span>],  <span class="comment">#random</span></span><br><span class="line">       [ <span class="number">0.49313049</span>,  <span class="number">0.94909878</span>]]) <span class="comment">#random</span></span><br><span class="line">Type:      builtin_function_or_method</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>魔术命令</p>
+<ul>
+<li>
+<p>查看变量<code>%who``%whos</code></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">In [<span class="number">7</span>]: whos                                                                    </span><br><span class="line">Variable   Type       Data/Info</span><br><span class="line">-------------------------------</span><br><span class="line">a          ndarray    <span class="number">100</span>x100: <span class="number">10000</span> elems, type `float64`, <span class="number">80000</span> bytes</span><br><span class="line">msg        str        hello ipython</span><br><span class="line">np         module     &lt;module <span class="string">'numpy'</span> <span class="keyword">from</span> <span class="string">'/ho&lt;...&gt;kages/numpy/__init__.py'</span>&gt;</span><br><span class="line"></span><br><span class="line">In [<span class="number">8</span>]: who                                                                     </span><br><span class="line">a	 msg	 np</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>清空变量和库 <code>%reset</code></p>
+</li>
+<li>
+<p>命令行运行<code>%run hello.py</code></p>
+</li>
+<li>
+<p>记录log文件</p>
+<ul>
+<li>开始记录log：<code>%logstart</code></li>
+<li>停止记录log：<code>%logstop</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>直接运行shell命令：<code>！</code></p>
+  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">In [<span class="number">21</span>]: !ifconfig |grep <span class="string">"inet "</span>                                                </span><br><span class="line">          inet 地址:<span class="number">192.168</span><span class="number">.6</span><span class="number">.135</span>  广播:<span class="number">192.168</span><span class="number">.6</span><span class="number">.255</span>  掩码:<span class="number">255.255</span><span class="number">.255</span><span class="number">.0</span></span><br><span class="line">          inet 地址:<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>  掩码:<span class="number">255.0</span><span class="number">.0</span><span class="number">.0</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>重载函数：<code>from imp import reload</code></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 原先的python函数,hello.py</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">say_hello</span><span class="params">()</span>:</span></span><br><span class="line">  print(<span class="string">"ipython is a bad tool"</span>)</span><br><span class="line">  </span><br><span class="line"><span class="comment"># 调用查看:</span></span><br><span class="line"><span class="comment"># import hello </span></span><br><span class="line"><span class="comment"># hello.say_hello()</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 后修改为：</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">say_hello</span><span class="params">()</span>:</span></span><br><span class="line">  print(<span class="string">"ipython is a bad tool"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在此调用查看：</span></span><br><span class="line"><span class="comment"># from imp import reload</span></span><br><span class="line"><span class="comment"># reload(hello)</span></span><br><span class="line"><span class="comment"># hello.say_hello()</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="jupyter-notebook"><a class="markdownIt-Anchor" href="#jupyter-notebook"></a> Jupyter-notebook</h1>
+<ul>
+<li>
+<p>开启notebook：<code>ipython notebook</code></p>
+</li>
+<li>
+<p>快捷键</p>
+<ul>
+<li>
+<p>切换命令模式和编辑模式：<code>Ctrl+M</code></p>
+<ul>
+<li>运行当前Cell，并停留在当前Cell：<code>Ctrl+Enter</code></li>
+<li>运行当前Cell，并停留在下一Cell：<code>Shift+Enter</code></li>
+<li>在命令模式下：删除当前Cell：<code>DD</code></li>
+<li>转换为Markdown：<code>M</code></li>
+<li>转换为代码模式：<code>Y</code></li>
+<li>在当前cell上面插入代码块：<code>A</code></li>
+<li>在当前cell下面插入代码块：<code>B</code></li>
+</ul>
+</li>
+<li>
+<p>编辑模式:<code>Enter</code></p>
+<ul>
+<li>快速删除一行：<code>ctrl+D</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="numpy-基础使用"><a class="markdownIt-Anchor" href="#numpy-基础使用"></a> Numpy 基础使用</h1>
+<ul>
+<li>
+<p>Numpy默认将计算结果转换为<code>行向量</code></p>
+</li>
+<li>
+<p>Numpy提供基本的统计功能，求和、求平均值、求方差</p>
+<ul>
+<li>一维数组</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">In [5]: a = np.random.randint(1,5,6)  </span><br><span class="line"></span><br><span class="line">In [6]: a.sum()                                                                 </span><br><span class="line">Out[6]: 21</span><br><span class="line"></span><br><span class="line">In [7]: a.mean()                                                                </span><br><span class="line">Out[7]: 3.5</span><br><span class="line"></span><br><span class="line">In [8]: a.std()                                                                 </span><br><span class="line">Out[8]: 0.7637626158259734</span><br><span class="line"></span><br><span class="line">In [9]: a.min()                                                                 </span><br><span class="line">Out[9]: 2</span><br><span class="line"></span><br><span class="line">In [10]: a.max()                                                                </span><br><span class="line">Out[10]: 4</span><br><span class="line"></span><br><span class="line">In [11]: a.argmin()                                                             </span><br><span class="line">Out[11]: 0</span><br><span class="line"></span><br><span class="line">In [13]: a.argmax()                                                             </span><br><span class="line">Out[13]: 1</span><br><span class="line"></span><br><span class="line">In [14]: print(a)                                                               </span><br><span class="line">[2 4 4 4 3 4]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>二维数组或高维数组，通过<code>axis=0</code>按行计算，<code>axis=1</code>按列计算</li>
+</ul>
+<blockquote>
+<p>消除哪儿一维就选择对应的axis的序号</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">In [<span class="number">15</span>]: b = np.random.randint(<span class="number">1</span>,<span class="number">100</span>,(<span class="number">6</span>,<span class="number">4</span>))                                     </span><br><span class="line"></span><br><span class="line">In [<span class="number">16</span>]: print(b)                                                               </span><br><span class="line">[[<span class="number">55</span> <span class="number">92</span> <span class="number">10</span> <span class="number">75</span>]</span><br><span class="line"> [<span class="number">63</span> <span class="number">34</span> <span class="number">61</span>  <span class="number">7</span>]</span><br><span class="line"> [<span class="number">25</span> <span class="number">29</span> <span class="number">36</span> <span class="number">83</span>]</span><br><span class="line"> [<span class="number">62</span> <span class="number">44</span>  <span class="number">6</span> <span class="number">12</span>]</span><br><span class="line"> [ <span class="number">5</span> <span class="number">37</span> <span class="number">25</span> <span class="number">13</span>]</span><br><span class="line"> [<span class="number">36</span> <span class="number">93</span> <span class="number">91</span> <span class="number">14</span>]]</span><br><span class="line"></span><br><span class="line">In [<span class="number">17</span>]: b.sum()                                                                </span><br><span class="line">Out[<span class="number">17</span>]: <span class="number">1008</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">18</span>]: b.sum(axis=<span class="number">0</span>).sum()                                                    </span><br><span class="line">Out[<span class="number">18</span>]: <span class="number">1008</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">19</span>]: b.sum(axis=<span class="number">1</span>)                                                          </span><br><span class="line">Out[<span class="number">19</span>]: array([<span class="number">232</span>, <span class="number">165</span>, <span class="number">173</span>, <span class="number">124</span>,  <span class="number">80</span>, <span class="number">234</span>])</span><br><span class="line"></span><br><span class="line">In [<span class="number">20</span>]: b.std(axis=<span class="number">1</span>)                                                          </span><br><span class="line">Out[<span class="number">20</span>]: </span><br><span class="line">array([<span class="number">30.65126425</span>, <span class="number">22.85142228</span>, <span class="number">23.28492001</span>, <span class="number">23.</span>        , <span class="number">12.12435565</span>,</span><br><span class="line">       <span class="number">34.39840113</span>])</span><br><span class="line"></span><br><span class="line">In [<span class="number">21</span>]: b.min(axis=<span class="number">1</span>)                                                          </span><br><span class="line">Out[<span class="number">21</span>]: array([<span class="number">10</span>,  <span class="number">7</span>, <span class="number">25</span>,  <span class="number">6</span>,  <span class="number">5</span>, <span class="number">14</span>])</span><br></pre></td></tr></table></figure>
+<ul>
+<li>
+<p>添加一个维度<code>np.newaxis</code></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">In [1]: a = np.arange(4)                                                                                                        </span><br><span class="line">In [3]: a = np.arange(4)                                                        </span><br><span class="line"></span><br><span class="line">In [4]: a.shape                                                                 </span><br><span class="line">Out[4]: (4,)</span><br><span class="line"></span><br><span class="line">In [5]: b = a[:,np.newaxis]                                                     </span><br><span class="line"></span><br><span class="line">In [6]: b.shape                                                                 </span><br><span class="line">Out[6]: (4, 1)</span><br><span class="line"></span><br><span class="line">In [7]: c = a[np.newaxis,:]                                                     </span><br><span class="line"></span><br><span class="line">In [8]: c.shape                                                                 </span><br><span class="line">Out[8]: (1, 4)</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>判断两个矩阵是否相同：<code>().all()</code></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">In [<span class="number">10</span>]: a = np.array([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>])                                                </span><br><span class="line"></span><br><span class="line">In [<span class="number">11</span>]: b = np.array([<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>])                                                </span><br><span class="line"></span><br><span class="line">In [<span class="number">12</span>]: a == b                                                                 </span><br><span class="line">Out[<span class="number">12</span>]: array([<span class="literal">False</span>, <span class="literal">False</span>, <span class="literal">False</span>, <span class="literal">False</span>])</span><br><span class="line"></span><br><span class="line">In [<span class="number">13</span>]: (a ==b ).all()                                                         </span><br><span class="line">Out[<span class="number">13</span>]: <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>numpy的读写</p>
+<ul>
+<li>保存为<code>.txt</code></li>
+<li>保存为numpy二进制文件<code>.npy</code></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a = np.arange(<span class="number">15</span>).reshape(<span class="number">3</span>,<span class="number">5</span>)</span><br><span class="line">print(a)</span><br><span class="line">[[ <span class="number">0</span>  <span class="number">1</span>  <span class="number">2</span>  <span class="number">3</span>  <span class="number">4</span>]</span><br><span class="line"> [ <span class="number">5</span>  <span class="number">6</span>  <span class="number">7</span>  <span class="number">8</span>  <span class="number">9</span>]</span><br><span class="line"> [<span class="number">10</span> <span class="number">11</span> <span class="number">12</span> <span class="number">13</span> <span class="number">14</span>]]</span><br><span class="line">np.savetxt(<span class="string">"a.txt"</span>,a)</span><br><span class="line">np.loadtxt(<span class="string">"a.txt"</span>)</span><br><span class="line">np.save(<span class="string">"a.npy"</span>,a)</span><br><span class="line">np.load(<span class="string">"a.npy"</span>)</span><br></pre></td></tr></table></figure>
+<p>查看对应的大小：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ls -lh</span><br><span class="line">-rw-rw-r-- 1 jacky jacky 248 12月 18 17:04 a.npy</span><br><span class="line">-rw-rw-r-- 1 jacky jacky 375 12月 18 17:04 a.txt</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>Numpy 多项式拟合</p>
+<ul>
+<li>根的求解</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np </span><br><span class="line">p = np.poly1d([<span class="number">1</span>,<span class="number">-4</span>,<span class="number">3</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 自变量取0的值</span></span><br><span class="line">p(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 多项式的根</span></span><br><span class="line">p.roots</span><br><span class="line">print(p.roots)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 对应根值的y值是0</span></span><br><span class="line">p(p.roots)</span><br><span class="line">print(p(p.roots))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 多项式的阶数</span></span><br><span class="line">p.order</span><br><span class="line">print(p.order)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 多项式的系数</span></span><br><span class="line">p.coeffs</span><br><span class="line">print(p.coeffs)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>拟合</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np </span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt </span><br><span class="line"></span><br><span class="line">n_dots = <span class="number">20</span> </span><br><span class="line">n_order = <span class="number">3</span> </span><br><span class="line"></span><br><span class="line">x = np.linspace(<span class="number">0</span>,<span class="number">1</span>,n_dots)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 真实的函数：y = sqrt(x) 再加上 0.2 的方差</span></span><br><span class="line">y = np.sqrt(x) + <span class="number">0.2</span> *np.random.rand()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 用三次多项式拟合 y = sqrt(x) 函数</span></span><br><span class="line">p = np.poly1d(np.polyfit(x,y,n_order))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出三次拟合后的系数</span></span><br><span class="line">print(p.coeffs)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 绘制拟合权限</span></span><br><span class="line">t = np.linspace(<span class="number">0</span>,<span class="number">1</span>,<span class="number">200</span>)</span><br><span class="line">plt.plot(x,y,<span class="string">'ro'</span>,t,p(t),<span class="string">'-'</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>蒙特卡洛方法：计算<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>π</mi></mrow><annotation encoding="application/x-tex">\pi</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">π</span></span></span></span>值</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np </span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt </span><br><span class="line"></span><br><span class="line">n_dots = <span class="number">100000</span></span><br><span class="line">x = np.random.rand(n_dots)</span><br><span class="line">y = np.random.rand(n_dots)</span><br><span class="line"></span><br><span class="line">distance = np.sqrt(x ** <span class="number">2</span> + y ** <span class="number">2</span>)</span><br><span class="line">in_circle = distance[distance &lt; <span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">Pi = <span class="number">4</span> * float(len(in_circle)) / n_dots</span><br><span class="line">print(Pi)</span><br><span class="line">plt.plot(x[distance&lt;<span class="number">1</span>],y[distance&lt;<span class="number">1</span>],<span class="string">'bo'</span>,x[distance&gt;=<span class="number">1</span>],y[distance&gt;=<span class="number">1</span>],<span class="string">'ko'</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><img alt data-src="https://cdn.jsdelivr.net/gh/wangjs-jacky/testpic/img_temp/image-20191218171646418.png" class="lozad"></p>
+<hr>
+<h1 id="pandas-基础使用"><a class="markdownIt-Anchor" href="#pandas-基础使用"></a> Pandas 基础使用</h1>
+<iframe src="https://nbviewer.jupyter.org/github/wangjs-jacky/Jupyter-notebook/blob/master/chapter02_01_pandas%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8.ipynb" width="100%" height="6300" scrolling="no"></iframe>
+## 数据结构输入
+]]></content>
+      <tags>
+        <tag>读书笔记</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>读书笔记《Matlab在语音信号分析与合成中的应用》第5章 带噪语音和预处理</title>
     <url>/2019/12/10/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E3%80%8AMatlab%E5%9C%A8%E8%AF%AD%E9%9F%B3%E4%BF%A1%E5%8F%B7%E5%88%86%E6%9E%90%E4%B8%8E%E5%90%88%E6%88%90%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8%E3%80%8B%E7%AC%AC5%E7%AB%A0%20%E5%B8%A6%E5%99%AA%E8%AF%AD%E9%9F%B3%E5%92%8C%E9%A2%84%E5%A4%84%E7%90%86/</url>
     <content><![CDATA[<h1 id="读书笔记matlab在语音信号分析与合成中的应用第5章-带噪语音和预处理"><a class="markdownIt-Anchor" href="#读书笔记matlab在语音信号分析与合成中的应用第5章-带噪语音和预处理"></a> 读书笔记《Matlab在语音信号分析与合成中的应用》第5章 带噪语音和预处理</h1>
@@ -211,12 +694,7 @@ $$</p>
   <entry>
     <title>论文模板设置</title>
     <url>/2019/12/09/%E8%AE%BA%E6%96%87%E6%A8%A1%E6%9D%BF%E8%AE%BE%E7%BD%AE/</url>
-    <content><![CDATA[<p>需要关注的几个点：</p>
-<ol>
-<li>word模板怎么搞</li>
-<li>论文怎么插入</li>
-</ol>
-<h1 id="第一部分word模板设置"><a class="markdownIt-Anchor" href="#第一部分word模板设置"></a> 第一部分：word模板设置</h1>
+    <content><![CDATA[<h1 id="第一部分word模板设置"><a class="markdownIt-Anchor" href="#第一部分word模板设置"></a> 第一部分：word模板设置</h1>
 <h2 id="0-准备工作"><a class="markdownIt-Anchor" href="#0-准备工作"></a> 0 准备工作</h2>
 <h3 id="01-设置定时保存"><a class="markdownIt-Anchor" href="#01-设置定时保存"></a> 0.1 设置定时保存</h3>
 <p><img alt data-src="https://cdn.jsdelivr.net/gh/wangjs-jacky/testpic/img_temp/20191209164617.png" class="lozad"></p>
@@ -465,7 +943,7 @@ $$</p>
 </table>
 <h3 id="23-额外设置设置所有级别缩进为0"><a class="markdownIt-Anchor" href="#23-额外设置设置所有级别缩进为0"></a> 2.3 额外设置，设置所有级别缩进为0</h3>
 <blockquote>
-<p>将对应的缩进全部设置为0，当需要缩进的时候，直接在对应的样式中设置。如需要标题1居中，则直接在样式中设置居中</p>
+<p>将对应的缩进全部设置为0，对应的效果见最终效果图，1.1和1.1.1的左侧都是对齐的，若不设置此步，两者都会相当较于页边距会存在一定的缩进。而我这里的解决方法，直接在多级列表中把缩进全部取消，而当需要缩进的时候，直接在对应的样式中设置。如需要标题1居中，则直接在样式中设置居中，或者让1.1.1缩进两个字符，设置标题三的样式首行缩进2个字符。【即：在样式中设置缩进，而不再多级列表中设置缩进。】</p>
 </blockquote>
 <p><img alt data-src="https://cdn.jsdelivr.net/gh/wangjs-jacky/testpic/img_temp/image-20191209201724381.png" class="lozad"></p>
 <ul>
@@ -483,7 +961,7 @@ $$</p>
 <table>
 <thead>
 <tr>
-<th>第一种：双击表格，下拉边框</th>
+<th>第一种：在菜单的设计选项卡，下拉边框</th>
 <th>第二种:设置表格属性<br>表格——&gt;边框和底纹——&gt; 无</th>
 </tr>
 </thead>
@@ -498,7 +976,10 @@ $$</p>
 </ul>
 </li>
 <li>
-<p>利用<code>边框刷</code>，将上下边框宽度都设置为1.5帮，其余线宽都是1磅。</p>
+<p>利用<code>边框刷</code>，将上下边框宽度都设置为1.5磅，其余线宽都是1磅。</p>
+</li>
+<li>
+<p>此外对于需要合并的单元格进行合并。</p>
 </li>
 <li>
 <p>最终效果</p>
@@ -506,6 +987,9 @@ $$</p>
 </li>
 </ul>
 <h3 id="32-图片的插入"><a class="markdownIt-Anchor" href="#32-图片的插入"></a> 3.2 图片的插入</h3>
+<blockquote>
+<p>对于图片排版很麻烦，一个设置的不好就会随便乱浮动，所以这里采用的方法是把图片放在表格中，让其在表格中居中，再将表格的边框设置为无边框，这样就不涉及图片的浮动问题了。</p>
+</blockquote>
 <ul>
 <li>
 <p>插入流程【单张图为例】</p>
@@ -517,39 +1001,51 @@ $$</p>
 <p>在第一行的表格框中，插入图片</p>
 </li>
 <li>
-<p>用3.1节的方法，将边框为<code>无边框</code></p>
+<p>用3.1节的方法，将边框设置为<code>无边框</code></p>
 </li>
 <li>
-<p>【三个居中】设置表格属性，表格水平和垂直方向上的居中，以及图片在表格中的居中</p>
+<p>设置三个居中，可以鼠标右击表格的移动图标调出表格属性设置<code>表格水平</code>和<code>垂直方向</code>上的居中，以及点击菜单开始栏下设置<code>图片在表格中</code>的居中。</p>
 </li>
 </ol>
    <img style="zoom:80%;" data-src="https://cdn.jsdelivr.net/gh/wangjs-jacky/testpic/img_temp/20191210160129.png" class="lozad">
 <ol start="5">
 <li>
-<p>填充方式的选择</p>
+<p>图片填充表格方式的选择</p>
+<ul>
+<li>调出命令【直接鼠标右击表格左上角的移动图标】</li>
+</ul>
 <img style="zoom:80%;" data-src="https://cdn.jsdelivr.net/gh/wangjs-jacky/testpic/img_temp/image-20191210160533455.png" class="lozad">
 <ul>
+<li>
+<p>命令说明：</p>
+<ul>
 <li>根据内容调整表格，表格会根据图片的大小而调整</li>
-<li>根据窗口自动调整表格，表格会直接铺满整个页面</li>
+<li>根据窗口自动调整表格，此时表格会直接铺满整个页面</li>
+</ul>
+<p>这里可以随便多试一下，固定宽度也可以多调整一下，反正是边框可以隐藏的，这不是重点。</p>
+</li>
 </ul>
 </li>
 </ol>
 </li>
 </ul>
 <h2 id="4-公式的输入"><a class="markdownIt-Anchor" href="#4-公式的输入"></a> 4 公式的输入</h2>
+<h3 id="41-基本软件和使用介绍"><a class="markdownIt-Anchor" href="#41-基本软件和使用介绍"></a> 4.1 基本软件和使用介绍</h3>
 <ul>
 <li>
-<p>软件推荐<code>Axmath</code></p>
-</li>
-<li>
-<p>软件下载地址：<a href="http://www.amyxun.com/" target="_blank" rel="noopener">http://www.amyxun.com/</a></p>
+<p>数学软件推荐<code>Axmath</code></p>
+<ul>
+<li>软件下载地址：<a href="http://www.amyxun.com/" target="_blank" rel="noopener">http://www.amyxun.com/</a></li>
+<li>附加：OCR公式软件推荐：<code>Mathpix</code></li>
+</ul>
 </li>
 <li>
 <p>软件优点：</p>
 <ul>
-<li>丰富的面板公式</li>
-<li>Latex快速输出输入</li>
+<li>丰富的面板公式，这点比mathtype好看不少。</li>
+<li>Latex快速输出输入。</li>
 <li>批量修改字体的大小和颜色</li>
+<li></li>
 </ul>
 </li>
 <li>
@@ -563,8 +1059,8 @@ $$</p>
 <li>
 <p>Latex模式输入，主要有两个用途（<code>Ctrl+Tab</code>切换）</p>
 <ul>
-<li>对于一些复杂的矩阵输入，面板无法修改，而latex容易修改</li>
-<li>对于不熟悉的Latex语法，可以面板输入后，查看</li>
+<li>当遇到某些复杂输入时，在面板中很难删除修改，如把矩阵的大小从4x4改为5x4，面板中只能整体选中4x4的方块，而如果稍微看懂latex的语法话，就是添几个竖线<code>|</code>的事，不需要删除再重新填充。</li>
+<li>第二个作用，刚开始对于不熟悉的Latex语法，可以面板拖动输入后查看。</li>
 </ul>
 <img style="zoom:67%;" data-src="https://cdn.jsdelivr.net/gh/wangjs-jacky/testpic/img_temp/20191210145732.png" class="lozad">
 </li>
@@ -601,21 +1097,36 @@ $$</p>
 <p>在视图中——&gt; 打开  🔲标尺选项</p>
 </li>
 <li>
-<p>找到中间的制位表</p>
-<p>将光标放到任意一段空白行，让其居中，查看居中的时候标尺位</p>
+<p>找到中间的制表位</p>
+<p>方法：将光标放到任意一段空白行，让其居中，查看居中的时候标尺位</p>
 <p><img alt data-src="https://cdn.jsdelivr.net/gh/wangjs-jacky/testpic/img_temp/20191210151039.png" class="lozad"></p>
-<p>此时可以发现，整个A4页面，最左侧的制位符是0，居中的制位符是20字符，居右的制位符是40字符。</p>
+<p>此时可以发现，整个A4页面，最左侧的制表符是0，居中的制表符是20字符，居右的制表符是40字符。</p>
 </li>
 <li>
-<p>新建一个叫<strong>公式</strong>的样式，主要修改制位表</p>
+<p>新建一个叫<strong>公式</strong>的样式，主要修改制表符。</p>
 <img style="zoom: 80%;" data-src="https://cdn.jsdelivr.net/gh/wangjs-jacky/testpic/img_temp/20191210151530.png" class="lozad">
 </li>
 <li>
 <p>最终的效果</p>
-<p>设置成功后，可以发现标尺上有个倒三角的字符。按一次TAB可以居中，再按一次TAB移至最页面右端。</p>
+<p>设置成功后，可以发现标尺上有个倒三角的字符。按一次TAB可以让公式居中，再按一次TAB移至最页面右端，可以填写公式的编号（1-1）。</p>
 <img style="zoom:80%;" data-src="https://cdn.jsdelivr.net/gh/wangjs-jacky/testpic/img_temp/20191210151837.png" class="lozad">
 </li>
 </ol>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="42-经常遇到的问题"><a class="markdownIt-Anchor" href="#42-经常遇到的问题"></a> 4.2 经常遇到的问题</h3>
+<ul>
+<li>公式图片显示不完整
+<ul>
+<li>可能导致的情况：设置了固定的行距 或 设置的是行内公式</li>
+<li>解决方法：
+<ul>
+<li>word开始标签栏——&gt;段落模块——&gt;点击右下角小三角，修改固定行距。</li>
+<li>将行内公式设置为行间公式</li>
+<li>调整公式的整体的大小，【根据1.3节内容，选择公式大小不超过固定磅值】</li>
+</ul>
 </li>
 </ul>
 </li>
@@ -625,16 +1136,16 @@ $$</p>
 <ul>
 <li>
 <p>软件推荐：<code>Zotero</code></p>
-</li>
-<li>
-<p>软件下载地址：<a href="https://www.zotero.org/" target="_blank" rel="noopener">https://www.zotero.org/</a></p>
+<ul>
+<li>软件下载地址：<a href="https://www.zotero.org/" target="_blank" rel="noopener">https://www.zotero.org/</a></li>
+</ul>
 </li>
 <li>
 <p>软件使用教程：<a href="https://www.cnblogs.com/wangjs-jacky/p/11530530.html" target="_blank" rel="noopener">https://www.cnblogs.com/wangjs-jacky/p/11530530.html</a></p>
 </li>
 <li>
 <p>Zotero在Word中插件安装</p>
-<p>一般情况下，安装完Zotero后，自动回在word中安装Zotero插件，若没有，可以打开Zotero进行设置</p>
+<p>一般情况下，安装完Zotero后，自动回在word中安装Zotero插件，若没有，也可以打开Zotero进行设置</p>
 <ol>
 <li>
 <p>第一步打开Zotero软件，编辑——&gt; 首选项</p>
@@ -1114,44 +1625,9 @@ $$</p>
       </tags>
   </entry>
   <entry>
-    <title>小说电影英语壁纸网站</title>
-    <url>/2019/12/04/%E7%BD%91%E7%AB%99%E6%90%9C%E7%B4%A2%E5%B0%8F%E8%AF%B4%E6%90%9C%E7%B4%A2/</url>
-    <content><![CDATA[<h1 id="网络小说"><a class="markdownIt-Anchor" href="#网络小说"></a> 网络小说</h1>
-<table>
-<thead>
-<tr>
-<th>名称</th>
-<th>地址</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>奇书网</td>
-<td><a href="https://www.qishuta.com/" target="_blank" rel="noopener">https://www.qishuta.com/</a></td>
-</tr>
-<tr>
-<td>威锋网</td>
-<td><a href="https://bbs.feng.com/" target="_blank" rel="noopener">https://bbs.feng.com/</a></td>
-</tr>
-<tr>
-<td>爱下电子书</td>
-<td><a href="https://www.aixdzs.com/" target="_blank" rel="noopener">https://www.aixdzs.com/</a></td>
-</tr>
-<tr>
-<td>蚂蚁阅读</td>
-<td><a href="http://www.imayitxt.com/" target="_blank" rel="noopener">http://www.imayitxt.com/</a></td>
-</tr>
-<tr>
-<td>下书网</td>
-<td><a href="https://www.xiashu.cc/" target="_blank" rel="noopener">https://www.xiashu.cc/</a></td>
-</tr>
-<tr>
-<td>读远网</td>
-<td><a href="https://www.readfar.com/" target="_blank" rel="noopener">https://www.readfar.com/</a></td>
-</tr>
-</tbody>
-</table>
-<h1 id="电子书资源"><a class="markdownIt-Anchor" href="#电子书资源"></a> 电子书资源</h1>
+    <title>实用网站收集</title>
+    <url>/2019/12/04/%E5%AE%9E%E7%94%A8%E7%BD%91%E7%AB%99%E6%94%B6%E9%9B%86/</url>
+    <content><![CDATA[<h1 id="电子书资源"><a class="markdownIt-Anchor" href="#电子书资源"></a> 电子书资源</h1>
 <table>
 <thead>
 <tr>
@@ -1312,6 +1788,11 @@ $$</p>
 <td style="text-align:center"><code>精</code></td>
 <td><a href="http://videos.yizhansou.com/" target="_blank" rel="noopener">http://videos.yizhansou.com/</a></td>
 </tr>
+<tr>
+<td>聚BT</td>
+<td style="text-align:center"><code>全</code></td>
+<td><a href="https://www.jubt.net/cn/index.html" target="_blank" rel="noopener">https://www.jubt.net/cn/index.html</a></td>
+</tr>
 </tbody>
 </table>
 <h1 id="壁纸"><a class="markdownIt-Anchor" href="#壁纸"></a> 壁纸</h1>
@@ -1330,6 +1811,26 @@ $$</p>
 <tr>
 <td>备用壁纸</td>
 <td><a href="http://lab.mkblog.cn/wallpaper/" target="_blank" rel="noopener">http://lab.mkblog.cn/wallpaper/</a></td>
+</tr>
+<tr>
+<td>wallhaven</td>
+<td><a href="https://wallhaven.cc/" target="_blank" rel="noopener">https://wallhaven.cc/</a></td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://www.hippopx.com/" target="_blank" rel="noopener">https://www.hippopx.com/</a></td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://pixabay.com/" target="_blank" rel="noopener">https://pixabay.com/</a></td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://www.reshot.com/" target="_blank" rel="noopener">https://www.reshot.com/</a></td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://isorepublic.com/" target="_blank" rel="noopener">https://isorepublic.com/</a></td>
 </tr>
 </tbody>
 </table>
@@ -1393,8 +1894,49 @@ $$</p>
 <td style="text-align:center"><code>分享后即毁</code></td>
 <td><a href="https://cp.anyknew.com/" target="_blank" rel="noopener">https://cp.anyknew.com/</a></td>
 </tr>
+<tr>
+<td>在线工具</td>
+<td style="text-align:center">👍<code>万能</code></td>
+<td><a href="https://tool.lu/" target="_blank" rel="noopener">https://tool.lu/</a></td>
+</tr>
 </tbody>
 </table>
+<h1 id="网络小说"><a class="markdownIt-Anchor" href="#网络小说"></a> 网络小说</h1>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>地址</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>奇书网</td>
+<td><a href="https://www.qishuta.com/" target="_blank" rel="noopener">https://www.qishuta.com/</a></td>
+</tr>
+<tr>
+<td>威锋网</td>
+<td><a href="https://bbs.feng.com/" target="_blank" rel="noopener">https://bbs.feng.com/</a></td>
+</tr>
+<tr>
+<td>爱下电子书</td>
+<td><a href="https://www.aixdzs.com/" target="_blank" rel="noopener">https://www.aixdzs.com/</a></td>
+</tr>
+<tr>
+<td>蚂蚁阅读</td>
+<td><a href="http://www.imayitxt.com/" target="_blank" rel="noopener">http://www.imayitxt.com/</a></td>
+</tr>
+<tr>
+<td>下书网</td>
+<td><a href="https://www.xiashu.cc/" target="_blank" rel="noopener">https://www.xiashu.cc/</a></td>
+</tr>
+<tr>
+<td>读远网</td>
+<td><a href="https://www.readfar.com/" target="_blank" rel="noopener">https://www.readfar.com/</a></td>
+</tr>
+</tbody>
+</table>
+<h1 id=""><a class="markdownIt-Anchor" href="#"></a> </h1>
 ]]></content>
       <tags>
         <tag>资源</tag>
@@ -1642,6 +2184,36 @@ $$</p>
 <td>981P</td>
 <td></td>
 </tr>
+<tr>
+<td><a href="https://www.bilibili.com/video/av59489505" target="_blank" rel="noopener">Python爬虫工程师 零基础到项目实战（完）</a></td>
+<td>138P</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://www.bilibili.com/video/av36003076" target="_blank" rel="noopener">python数据分析与机器学习实战</a></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://www.bilibili.com/video/av77620550?from=search&amp;seid=12970521265274848393" target="_blank" rel="noopener">Python GUI进阶实战教程：基于tkinter的视频播放器开发</a></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://www.bilibili.com/video/av61686342" target="_blank" rel="noopener">Python的Gui编程-PyQt5从入门到项目实战</a></td>
+<td>426P</td>
+<td><code>推荐</code></td>
+</tr>
+<tr>
+<td><a href="https://www.bilibili.com/video/av35531698" target="_blank" rel="noopener">Python机器学习Kaggle案例实战</a></td>
+<td>62P</td>
+<td><code>推荐</code></td>
+</tr>
+<tr>
+<td><a href="https://www.bilibili.com/video/av36993857" target="_blank" rel="noopener">【机器学习实战】【python3版本】【代码讲解】</a></td>
+<td>20P</td>
+<td><code>南航硕士讲解机器学习实战</code></td>
+</tr>
 </tbody>
 </table>
 <h1 id="资源分享博主"><a class="markdownIt-Anchor" href="#资源分享博主"></a> 资源分享博主</h1>
@@ -1656,6 +2228,10 @@ $$</p>
 <tr>
 <td><a href="https://space.bilibili.com/415465464" target="_blank" rel="noopener"><strong>00萌萌站起来00</strong></a></td>
 <td></td>
+</tr>
+<tr>
+<td><a href="https://space.bilibili.com/178069433" target="_blank" rel="noopener"><strong>深圳麦粮</strong></a></td>
+<td>👍 可视化统计学</td>
 </tr>
 </tbody>
 </table>

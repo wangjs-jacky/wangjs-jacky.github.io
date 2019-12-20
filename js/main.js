@@ -662,3 +662,14 @@ $(function () {
   }
 
 });
+
+function SetWinHeight(obj) {
+            if (document.getElementById) {
+                if (obj && !window.opera) {
+                    if (obj.contentDocument && obj.contentDocument.body.offsetHeight)
+                        obj.height = obj.contentDocument.body.offsetHeight;
+                    else if (obj.Document && obj.Document.body.scrollHeight)
+                        obj.height = obj.Document.body.scrollHeight;
+                }
+            }
+        }
