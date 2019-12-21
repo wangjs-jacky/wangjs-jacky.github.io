@@ -3619,6 +3619,76 @@ img:hover {
   height: 1px;
   background: #00c4b6;
 }
+.SklearnAPI-content ol,
+.SklearnAPI-content ul {
+  margin-top: 0.4rem;
+  padding: 0 0 0 0.8rem;
+  list-style: none;
+  counter-reset: li;
+}
+.SklearnAPI-content ol p,
+.SklearnAPI-content ul p {
+  margin: 0;
+}
+.SklearnAPI-content ol ol,
+.SklearnAPI-content ul ol,
+.SklearnAPI-content ol ul,
+.SklearnAPI-content ul ul {
+  padding-left: 0.5rem;
+}
+.SklearnAPI-content ol li,
+.SklearnAPI-content ul li {
+  position: relative;
+  margin: 0.3rem 0;
+  padding: 0.1rem 0.5rem 0.1rem 1.5rem !important;
+}
+.SklearnAPI-content ol li:hover:before,
+.SklearnAPI-content ul li:hover:before {
+  -webkit-transform: rotate(360deg);
+  -moz-transform: rotate(360deg);
+  -o-transform: rotate(360deg);
+  -ms-transform: rotate(360deg);
+  transform: rotate(360deg);
+}
+.SklearnAPI-content ol li:before,
+.SklearnAPI-content ul li:before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #49b1f5;
+  color: #fff;
+  cursor: pointer;
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+.SklearnAPI-content ol li:before {
+  margin-top: 0.2rem;
+  width: 1.2rem;
+  height: 1.2rem;
+  border-radius: 0.6rem;
+  content: counter(li);
+  counter-increment: li;
+  text-align: center;
+  font-size: 0.6rem;
+  line-height: 1.2rem;
+}
+.SklearnAPI-content ul li:hover:before {
+  border-color: #ff7242;
+}
+.SklearnAPI-content ul li:before {
+  top: 10px;
+  margin-left: 0.45rem;
+  width: 0.3rem;
+  height: 0.3rem;
+  border: 0.15rem solid #49b1f5;
+  border-radius: 0.3rem;
+  background: #fff;
+  content: "";
+  line-height: 0.3rem;
+}
 #recent-posts {
   width: 75%;
 }
