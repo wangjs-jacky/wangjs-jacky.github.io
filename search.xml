@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>gridSearchCV网格搜索</title>
+    <url>/2019/12/23/gridSearchCV%E7%BD%91%E6%A0%BC%E6%90%9C%E7%B4%A2/</url>
+    <content><![CDATA[<iframe src="https://nbviewer.jupyter.org/github/wangjs-jacky/Jupyter-notebook/blob/master/01_basic_practice/%E6%A8%A1%E5%9E%8B%E8%B0%83%E5%8F%82%E5%88%A9%E5%99%A8%20gridSearchCV%EF%BC%88%E7%BD%91%E6%A0%BC%E6%90%9C%E7%B4%A2%EF%BC%89.ipynb" width=100% height=3200 scrolling="no"></iframe>
+]]></content>
+      <categories>
+        <category>sklearn</category>
+        <category>model_selection</category>
+        <category>GridSearchCV</category>
+      </categories>
+      <tags>
+        <tag>sklearn</tag>
+        <tag>hide</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Pipeline实践与学习曲线learning_curve</title>
     <url>/2019/12/22/Pipeline%E5%AE%9E%E8%B7%B5%E4%B8%8E%E5%AD%A6%E4%B9%A0%E6%9B%B2%E7%BA%BF/</url>
     <content><![CDATA[<h1 id="实例画出学习曲线"><a class="markdownIt-Anchor" href="#实例画出学习曲线"></a> 实例画出学习曲线</h1>
@@ -17,7 +32,7 @@
 </ul>
 <h2 id="pipeline和shufflesplit使用"><a class="markdownIt-Anchor" href="#pipeline和shufflesplit使用"></a> Pipeline和ShuffleSplit使用</h2>
 <iframe src="https://nbviewer.jupyter.org/github/wangjs-jacky/Jupyter-notebook/blob/master/01_basic_practice/交叉验证简易上手教程 - ShuffleSplit和Pipeline实践.ipynb"width=100% height=3800 scrolling="no"></iframe>
-## 编程思路 
+<h2 id="编程思路"><a class="markdownIt-Anchor" href="#编程思路"></a> 编程思路</h2>
 <ul>
 <li>
 <p>数据产生：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi><mo>=</mo><msqrt><mo stretchy="false">(</mo></msqrt><mi>x</mi><mo stretchy="false">)</mo><mo>+</mo><mn>0.2</mn><mo>∗</mo><mi>n</mi><mi>p</mi><mi mathvariant="normal">.</mi><mi>r</mi><mi>a</mi><mi>n</mi><mi>d</mi><mi>o</mi><mi>m</mi><mi mathvariant="normal">.</mi><mi>r</mi><mi>a</mi><mi>n</mi><mi>d</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">y = \sqrt(x) + 0.2*np.random.rand(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.24em;vertical-align:-0.30499999999999994em;"></span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.935em;"><span class="svg-align" style="top:-3.2em;"><span class="pstrut" style="height:3.2em;"></span><span class="mopen" style="padding-left:1em;">(</span></span><span style="top:-2.8950000000000005em;"><span class="pstrut" style="height:3.2em;"></span><span class="hide-tail" style="min-width:1.02em;height:1.28em;"><svg width='400em' height='1.28em' viewBox='0 0 400000 1296' preserveAspectRatio='xMinYMin slice'><path d='M263,681c0.7,0,18,39.7,52,119c34,79.3,68.167,
@@ -48,8 +63,8 @@ s76,-59,76,-59s76,-60,76,-60z M1001 80H40000v40H1012z'/></svg></span></span></sp
 ]]></content>
       <categories>
         <category>sklearn</category>
-        <category>preprocessing</category>
         <category>model_selection</category>
+        <category>preprocessing</category>
         <category>learning_curve</category>
         <category>ShuffleSplit</category>
         <category>PolynomialFeatures</category>
@@ -148,7 +163,16 @@ s76,-59,76,-59s76,-60,76,-60z M1001 80H40000v40H1012z'/></svg></span></span></sp
   <entry>
     <title>读书笔记《scikit-learn-机器学习常用算法原理及编程实战》第3章机器学习理论基础</title>
     <url>/2019/12/20/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E3%80%8Ascikit-learn-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86%E5%8F%8A%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%E3%80%8B%E7%AC%AC3%E7%AB%A0%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/</url>
-    <content><![CDATA[]]></content>
+    <content><![CDATA[<h2 id="过拟合和欠拟合"><a class="markdownIt-Anchor" href="#过拟合和欠拟合"></a> 过拟合和欠拟合</h2>
+<h2 id="成本函数"><a class="markdownIt-Anchor" href="#成本函数"></a> 成本函数</h2>
+<ul>
+<li>最小二乘误差法</li>
+</ul>
+<iframe src="http://3g.163.com/news/article/F108O3E4000798O9.html"></iframe>
+<ul>
+<li>dsajf ljds</li>
+</ul>
+<iframe src="https://www.baidu.com"></iframe>]]></content>
       <tags>
         <tag>读书笔记</tag>
       </tags>
