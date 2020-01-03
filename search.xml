@@ -4,13 +4,45 @@
   
     
     <entry>
-      <title>Pipeline_make_classification_SelectKBest</title>
-      <link href="/2020/01/03/Pipeline_make_classification_SelectKBest/"/>
-      <url>/2020/01/03/Pipeline_make_classification_SelectKBest/</url>
+      <title>针对特征处理的两个案例</title>
+      <link href="/2020/01/03/%E9%92%88%E5%AF%B9%E7%89%B9%E5%BE%81%E5%A4%84%E7%90%86%E7%9A%84%E4%B8%A4%E4%B8%AA%E6%A1%88%E4%BE%8B/"/>
+      <url>/2020/01/03/%E9%92%88%E5%AF%B9%E7%89%B9%E5%BE%81%E5%A4%84%E7%90%86%E7%9A%84%E4%B8%A4%E4%B8%AA%E6%A1%88%E4%BE%8B/</url>
       
-        <content type="html"><![CDATA[<hr /><p>comments: false<br />toc_number: true<br />copyright: true<br />title:<br />date: 2020-01-03<br />tags:</p><ul><li>sklearn</li><li>hide<br />categories:</li><li>[sklearn,datasets,make_classification]</li><li>[sklearn,pipeline,Pipeline]</li><li>[sklearn,feature_selection,SelectKBest]</li><li>[sklearn,feature_selection,f_regression]</li><li>[sklearn,preprocessing,StandardScaler/MinMaxScaler/OneHotEncoder/Normalizer/normalize/]<br />keywords:<br />description:<br />top_img:<br />cover: <a href="https://sklearn.apachecn.org/docs/img/scikit-learn-logo.png" target="_blank" rel="noopener">https://sklearn.apachecn.org/docs/img/scikit-learn-logo.png</a><br />toc:</li></ul><hr /><p><a href="https://nbviewer.jupyter.org/github/wangjs-jacky/Jupyter-notebook/blob/master/00_API_document/Pipeline_make_classification_SelectKBest%E8%AF%A6%E8%A7%A3.ipynb" target="_blank" rel="noopener">案例01:</a></p><blockquote><p>利用make_classification生成一堆无关的特征，再利用SelectKBest选出最有关联的两个特征进行绘图，选择标准f-回归系数 , 再利用Pipeline融合过程。这篇文章对Pipeline有着比较充分的说明，包括子管道的提取和使用。</p></blockquote><p><a href="https://nbviewer.jupyter.org/github/wangjs-jacky/Jupyter-notebook/blob/master/00_API_document/sklearn.preprocessing%20%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93.ipynb" target="_blank" rel="noopener">案例02:</a></p><blockquote><p>介绍了通用的几种对数据处理的方式：标准化，最大最小值归一化，Onehot 编码，范数归一化，范数归一化函数。最后对如何使用进行了统一的演练。</p></blockquote>]]></content>
+        <content type="html"><![CDATA[<p><a href="https://nbviewer.jupyter.org/github/wangjs-jacky/Jupyter-notebook/blob/master/00_API_document/Pipeline_make_classification_SelectKBest%E8%AF%A6%E8%A7%A3.ipynb" target="_blank" rel="noopener">案例01:</a></p><blockquote><p>利用make_classification生成一堆无关的特征，再利用SelectKBest选出最有关联的两个特征进行绘图，选择标准f-回归系数 , 再利用Pipeline融合过程。这篇文章对Pipeline有着比较充分的说明，包括子管道的提取和使用。</p></blockquote><p><a href="https://nbviewer.jupyter.org/github/wangjs-jacky/Jupyter-notebook/blob/master/00_API_document/sklearn.preprocessing%20%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93.ipynb" target="_blank" rel="noopener">案例02:</a></p><blockquote><p>介绍了通用的几种对数据处理的方式：标准化，最大最小值归一化，Onehot 编码，范数归一化，范数归一化函数。最后对如何使用进行了统一的演练。</p></blockquote>]]></content>
       
       
+      <categories>
+          
+          <category> sklearn </category>
+          
+          <category> preprocessing </category>
+          
+          <category> datasets </category>
+          
+          <category> make_classification </category>
+          
+          <category> pipeline </category>
+          
+          <category> Pipeline </category>
+          
+          <category> feature_selection </category>
+          
+          <category> SelectKBest </category>
+          
+          <category> f_regression </category>
+          
+          <category> StandardScaler/MinMaxScaler/OneHotEncoder/Normalizer/normalize/ </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> hide </tag>
+            
+            <tag> sklearn </tag>
+            
+        </tags>
       
     </entry>
     
