@@ -605,7 +605,9 @@ c-16-25.333-24-45-24-59z"/></svg></span></span></span></span><span class="vlist-
 </ul>
 ]]></content>
       <categories>
-        <category>sklearn tree DecisionTreeClassifier</category>
+        <category>sklearn</category>
+        <category>tree</category>
+        <category>DecisionTreeClassifier</category>
       </categories>
       <tags>
         <tag>hide</tag>
@@ -1010,7 +1012,36 @@ c-16-25.333-24-45-24-59z"/></svg></span></span></span></span><span class="vlist-
         <category>LogisticRegressionCV</category>
       </categories>
       <tags>
+        <tag>hide</tag>
         <tag>sklearn</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>读书笔记《scikit-learn-机器学习常用算法原理及编程实战》第5章线性回归算法</title>
+    <url>/2019/12/25/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E3%80%8Ascikit-learn-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86%E5%8F%8A%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%E3%80%8B%E7%AC%AC5%E7%AB%A0%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[<h1 id="example01利用polynomialfeatures解决过拟合问题"><a class="markdownIt-Anchor" href="#example01利用polynomialfeatures解决过拟合问题"></a> <a href="https://nbviewer.jupyter.org/github/wangjs-jacky/Jupyter-notebook/blob/master/03_%E9%BB%84%E6%B0%B8%E6%98%8C_skleran%E5%9F%BA%E7%A1%800/ch05.01.ipynb" target="_blank" rel="noopener">Example01:利用PolynomialFeatures解决过拟合问题</a></h1>
+<ul>
+<li>
+<p>线性回归模型实在是太简单了，非常容易导致欠拟合，根据前文中解决欠拟合的手段一共有两个：</p>
+<ul>
+<li>增加物理特征，如房屋的地段，房屋的朝向等</li>
+<li>增加无意义的数学变量。使用<code>sklearn.preprocessing.PolynomialFeatures</code></li>
+</ul>
+  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LinearRegression</span><br><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> PolynomialFeatures</span><br><span class="line"><span class="keyword">from</span> sklearn.pipeline <span class="keyword">import</span> Pipeline</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">polynomial_model</span><span class="params">(degree=<span class="number">1</span>)</span>:</span></span><br><span class="line">    polynomial_features = PolynomialFeatures(degree=degree,</span><br><span class="line">                                             include_bias=<span class="literal">False</span>)</span><br><span class="line">    linear_regression = LinearRegression(normalize=<span class="literal">True</span>)</span><br><span class="line">    pipeline = Pipeline([(<span class="string">"polynomial_features"</span>, polynomial_features),</span><br><span class="line">                         (<span class="string">"linear_regression"</span>, linear_regression)])</span><br><span class="line">    <span class="keyword">return</span> pipeline</span><br></pre></td></tr></table></figure>
+<p>注：若是Pipeline中的若自己编写的函数，则默认调用的是<code>.fit_transform</code>方法，而最后的结点则必须要用<code>.fit()</code>实现。</p>
+</li>
+<li>
+<p>使用<code>mean_squared_error</code>计算均方根误差</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> mean_squared_error</span><br></pre></td></tr></table></figure>
+<p><img alt data-src="https://cdn.jsdelivr.net/gh/wangjs-jacky/testpic/img_temp/20191225174259.png" class="lozad"></p>
+</li>
+</ul>
+<h1 id="eample02房价预测"><a class="markdownIt-Anchor" href="#eample02房价预测"></a> <a href="https://nbviewer.jupyter.org/github/wangjs-jacky/Jupyter-notebook/blob/master/03_%E9%BB%84%E6%B0%B8%E6%98%8C_skleran%E5%9F%BA%E7%A1%800/ch05.02.ipynb" target="_blank" rel="noopener">Eample02：房价预测</a></h1>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> datasets</span><br><span class="line">boston = datasets.load_boston(return_X_y=<span class="literal">False</span>)</span><br><span class="line">X = boston.data</span><br><span class="line">y = boston.target</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者直接元组接受</span></span><br><span class="line">X, y = load_boston(return_X_y=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<p><img alt data-src="https://cdn.jsdelivr.net/gh/wangjs-jacky/testpic/img_temp/20191225180524.png" class="lozad"></p>
+]]></content>
+      <tags>
+        <tag>读书笔记</tag>
       </tags>
   </entry>
   <entry>
@@ -1077,34 +1108,6 @@ c-16-25.333-24-45-24-59z"/></svg></span></span></span></span><span class="vlist-
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">polynomial_model</span><span class="params">(degree=<span class="number">1</span>, **kwarg)</span>:</span></span><br><span class="line">    polynomial_features = PolynomialFeatures(degree=degree,</span><br><span class="line">                                             include_bias=<span class="literal">False</span>)</span><br><span class="line">    logistic_regression = LogisticRegression(**kwarg)</span><br><span class="line">    pipeline = Pipeline([(<span class="string">"polynomial_features"</span>, polynomial_features),</span><br><span class="line">                         (<span class="string">"logistic_regression"</span>, logistic_regression)])</span><br><span class="line">    <span class="keyword">return</span> pipeline</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-]]></content>
-      <tags>
-        <tag>读书笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>读书笔记《scikit-learn-机器学习常用算法原理及编程实战》第5章线性回归算法</title>
-    <url>/2019/12/25/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E3%80%8Ascikit-learn-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86%E5%8F%8A%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%E3%80%8B%E7%AC%AC5%E7%AB%A0%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E7%AE%97%E6%B3%95/</url>
-    <content><![CDATA[<h1 id="example01利用polynomialfeatures解决过拟合问题"><a class="markdownIt-Anchor" href="#example01利用polynomialfeatures解决过拟合问题"></a> <a href="https://nbviewer.jupyter.org/github/wangjs-jacky/Jupyter-notebook/blob/master/03_%E9%BB%84%E6%B0%B8%E6%98%8C_skleran%E5%9F%BA%E7%A1%800/ch05.01.ipynb" target="_blank" rel="noopener">Example01:利用PolynomialFeatures解决过拟合问题</a></h1>
-<ul>
-<li>
-<p>线性回归模型实在是太简单了，非常容易导致欠拟合，根据前文中解决欠拟合的手段一共有两个：</p>
-<ul>
-<li>增加物理特征，如房屋的地段，房屋的朝向等</li>
-<li>增加无意义的数学变量。使用<code>sklearn.preprocessing.PolynomialFeatures</code></li>
-</ul>
-  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LinearRegression</span><br><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> PolynomialFeatures</span><br><span class="line"><span class="keyword">from</span> sklearn.pipeline <span class="keyword">import</span> Pipeline</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">polynomial_model</span><span class="params">(degree=<span class="number">1</span>)</span>:</span></span><br><span class="line">    polynomial_features = PolynomialFeatures(degree=degree,</span><br><span class="line">                                             include_bias=<span class="literal">False</span>)</span><br><span class="line">    linear_regression = LinearRegression(normalize=<span class="literal">True</span>)</span><br><span class="line">    pipeline = Pipeline([(<span class="string">"polynomial_features"</span>, polynomial_features),</span><br><span class="line">                         (<span class="string">"linear_regression"</span>, linear_regression)])</span><br><span class="line">    <span class="keyword">return</span> pipeline</span><br></pre></td></tr></table></figure>
-<p>注：若是Pipeline中的若自己编写的函数，则默认调用的是<code>.fit_transform</code>方法，而最后的结点则必须要用<code>.fit()</code>实现。</p>
-</li>
-<li>
-<p>使用<code>mean_squared_error</code>计算均方根误差</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> mean_squared_error</span><br></pre></td></tr></table></figure>
-<p><img alt data-src="https://cdn.jsdelivr.net/gh/wangjs-jacky/testpic/img_temp/20191225174259.png" class="lozad"></p>
-</li>
-</ul>
-<h1 id="eample02房价预测"><a class="markdownIt-Anchor" href="#eample02房价预测"></a> <a href="https://nbviewer.jupyter.org/github/wangjs-jacky/Jupyter-notebook/blob/master/03_%E9%BB%84%E6%B0%B8%E6%98%8C_skleran%E5%9F%BA%E7%A1%800/ch05.02.ipynb" target="_blank" rel="noopener">Eample02：房价预测</a></h1>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> datasets</span><br><span class="line">boston = datasets.load_boston(return_X_y=<span class="literal">False</span>)</span><br><span class="line">X = boston.data</span><br><span class="line">y = boston.target</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者直接元组接受</span></span><br><span class="line">X, y = load_boston(return_X_y=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
-<p><img alt data-src="https://cdn.jsdelivr.net/gh/wangjs-jacky/testpic/img_temp/20191225180524.png" class="lozad"></p>
 ]]></content>
       <tags>
         <tag>读书笔记</tag>
@@ -1695,7 +1698,7 @@ c-16-25.333-24-45-24-59z"/></svg></span></span></span></span><span class="vlist-
 </ul>
 <h2 id="pipeline和shufflesplit使用"><a class="markdownIt-Anchor" href="#pipeline和shufflesplit使用"></a> Pipeline和ShuffleSplit使用</h2>
 <iframe src="https://nbviewer.jupyter.org/github/wangjs-jacky/Jupyter-notebook/blob/master/01_basic_practice/交叉验证简易上手教程 - ShuffleSplit和Pipeline实践.ipynb"width=100% height=3800 scrolling="no"></iframe>
-<h2 id="编程思路"><a class="markdownIt-Anchor" href="#编程思路"></a> 编程思路</h2>
+## 编程思路 
 <ul>
 <li>
 <p>数据产生：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi><mo>=</mo><msqrt><mo stretchy="false">(</mo></msqrt><mi>x</mi><mo stretchy="false">)</mo><mo>+</mo><mn>0.2</mn><mo>∗</mo><mi>n</mi><mi>p</mi><mi mathvariant="normal">.</mi><mi>r</mi><mi>a</mi><mi>n</mi><mi>d</mi><mi>o</mi><mi>m</mi><mi mathvariant="normal">.</mi><mi>r</mi><mi>a</mi><mi>n</mi><mi>d</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">y = \sqrt(x) + 0.2*np.random.rand(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.24em;vertical-align:-0.30499999999999994em;"></span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.935em;"><span class="svg-align" style="top:-3.2em;"><span class="pstrut" style="height:3.2em;"></span><span class="mopen" style="padding-left:1em;">(</span></span><span style="top:-2.8950000000000005em;"><span class="pstrut" style="height:3.2em;"></span><span class="hide-tail" style="min-width:1.02em;height:1.28em;"><svg width='400em' height='1.28em' viewBox='0 0 400000 1296' preserveAspectRatio='xMinYMin slice'><path d='M263,681c0.7,0,18,39.7,52,119c34,79.3,68.167,
@@ -1733,6 +1736,7 @@ s76,-59,76,-59s76,-60,76,-60z M1001 80H40000v40H1012z'/></svg></span></span></sp
         <category>ShuffleSplit</category>
       </categories>
       <tags>
+        <tag>hide</tag>
         <tag>sklearn</tag>
       </tags>
   </entry>
