@@ -1,0 +1,537 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><title>噪声测试实验 | Jacky's blogs</title><meta name="description" content="噪声测试实验"><meta name="keywords" content="论文复现"><meta name="author" content="Jacky"><meta name="copyright" content="Jacky"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="canonical" href="https://wangjs-jacky.github.io/2020/04/11/%E5%99%AA%E5%A3%B0%E6%B5%8B%E8%AF%95%E5%AE%9E%E9%AA%8C/"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="噪声测试实验"><meta name="twitter:description" content="噪声测试实验"><meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/wangjs-jacky/testpic/img_temp/20200222005653.png"><meta property="og:type" content="article"><meta property="og:title" content="噪声测试实验"><meta property="og:url" content="https://wangjs-jacky.github.io/2020/04/11/%E5%99%AA%E5%A3%B0%E6%B5%8B%E8%AF%95%E5%AE%9E%E9%AA%8C/"><meta property="og:site_name" content="Jacky's blogs"><meta property="og:description" content="噪声测试实验"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/wangjs-jacky/testpic/img_temp/20200222005653.png"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="next" title="谱减法" href="https://wangjs-jacky.github.io/2020/04/11/%E8%B0%B1%E5%87%8F%E6%B3%95/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://xxx/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  highlight_copy: 'true',
+  highlight_lang: 'true',
+  highlight_shrink: 'false',
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    title: '添加书签',
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  copyright: undefined,
+  copy_copyright_js: false
+  
+}</script></head><body><canvas class="fireworks"></canvas><div id="header"> <div id="page-header"><span class="pull-left" id="blog_name"><a class="blog_title" id="site-name" href="/">Jacky's blogs</a></span><i class="fa fa-bars fa-fw toggle-menu pull-right close" aria-hidden="true"></i><span class="pull-right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> About</span></a></div><div class="menus_item"><a class="site-page" href="/categories/SklearnAPI"><i class="fa-fw fa fa-music"></i><span> SklearnAPI</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> 列表</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> Music</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fa fa-film"></i><span> Movie</span></a></li></ul></div><script>document.body.addEventListener('touchstart', function(){ });</script></div></span><span class="pull-right" id="search_button"><a class="site-page social-icon search"><i class="fa fa-search fa-fw"></i><span> 搜索</span></a></span></div></div><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="lozad avatar_img" src="https://cdn.jsdelivr.net/gh/wangjs-jacky/testpic/小李.jpg" onerror="onerror=null;src='/img/friend_404.gif'"></div><div class="mobile_post_data"><div class="mobile_data_item is_center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">68</div></a></div></div><div class="mobile_data_item is_center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">25</div></a></div></div><div class="mobile_data_item is_center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">55</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> About</span></a></div><div class="menus_item"><a class="site-page" href="/categories/SklearnAPI"><i class="fa-fw fa fa-music"></i><span> SklearnAPI</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> 列表</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> Music</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fa fa-film"></i><span> Movie</span></a></li></ul></div><script>document.body.addEventListener('touchstart', function(){ });</script></div></div><div id="mobile-sidebar-toc"><div class="toc_mobile_headline">目录</div><ol class="toc_mobile_items"><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#噪声测试实验"><span class="toc_mobile_items-number">1.</span> <span class="toc_mobile_items-text"> 噪声测试实验</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#倒谱均值减倒谱均值归一化实验测试"><span class="toc_mobile_items-number">1.1.</span> <span class="toc_mobile_items-text"> 倒谱均值减（倒谱均值归一化）实验测试</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#i-vector-ldaplda"><span class="toc_mobile_items-number">1.2.</span> <span class="toc_mobile_items-text"> i-vector + lda/plda</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#实验1验证i-vector是否在有噪环境下比gmm-ubm表现更好"><span class="toc_mobile_items-number">1.2.1.</span> <span class="toc_mobile_items-text"> 实验1：验证i-vector是否在有噪环境下比GMM-UBM表现更好？</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#实验2与实验1作对比实验实验条件为无噪环境"><span class="toc_mobile_items-number">1.2.2.</span> <span class="toc_mobile_items-text"> 实验2：与实验1作对比实验，实验条件为：无噪环境</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#实验3进行更为细致的信道测试"><span class="toc_mobile_items-number">1.2.3.</span> <span class="toc_mobile_items-text"> 实验3：进行更为细致的信道测试</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#实验4i-vectorplda测试"><span class="toc_mobile_items-number">1.2.4.</span> <span class="toc_mobile_items-text"> 实验4：i-vector+PLDA测试：</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#自适应滤波实验"><span class="toc_mobile_items-number">1.3.</span> <span class="toc_mobile_items-text"> 自适应滤波实验</span></a></li></ol></li></ol></div></div><div id="body-wrap"><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true">     </i><div class="auto_open" id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#噪声测试实验"><span class="toc-number">1.</span> <span class="toc-text"> 噪声测试实验</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#倒谱均值减倒谱均值归一化实验测试"><span class="toc-number">1.1.</span> <span class="toc-text"> 倒谱均值减（倒谱均值归一化）实验测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#i-vector-ldaplda"><span class="toc-number">1.2.</span> <span class="toc-text"> i-vector + lda/plda</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#实验1验证i-vector是否在有噪环境下比gmm-ubm表现更好"><span class="toc-number">1.2.1.</span> <span class="toc-text"> 实验1：验证i-vector是否在有噪环境下比GMM-UBM表现更好？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实验2与实验1作对比实验实验条件为无噪环境"><span class="toc-number">1.2.2.</span> <span class="toc-text"> 实验2：与实验1作对比实验，实验条件为：无噪环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实验3进行更为细致的信道测试"><span class="toc-number">1.2.3.</span> <span class="toc-text"> 实验3：进行更为细致的信道测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实验4i-vectorplda测试"><span class="toc-number">1.2.4.</span> <span class="toc-text"> 实验4：i-vector+PLDA测试：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#自适应滤波实验"><span class="toc-number">1.3.</span> <span class="toc-text"> 自适应滤波实验</span></a></li></ol></li></ol></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://cdn.jsdelivr.net/gh/wangjs-jacky/testpic/img_temp/20200222005653.png)"><div id="post-info"><div id="post-title"><div class="posttitle">噪声测试实验</div></div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2020-04-11<span class="post-meta__separator">|</span><i class="fa fa-history" aria-hidden="true"></i> 更新于 2020-04-11</time><div class="post-meta-wordcount"><span>字数总计: </span><span class="word-count">2k</span><span class="post-meta__separator">|</span><span>阅读时长: 8 分钟</span><span class="post-meta__separator">|</span><span>阅读量: </span><span id="busuanzi_value_page_pv"></span></div></div></div></div><div class="layout layout_post" id="content-inner">   <article id="post"><div class="article-container" id="post-content"><h1 id="噪声测试实验"><a class="markdownIt-Anchor" href="#噪声测试实验"></a> 噪声测试实验</h1>
+<p>环境说明：</p>
+<ul>
+<li>
+<p>100作为背景UBM测试量</p>
+</li>
+<li>
+<p>50作为测试数据集，取前1句话作为训练，后9句话测试</p>
+</li>
+<li>
+<p>噪声部分：噪声类型：白噪声【SNR=20】</p>
+</li>
+<li>
+<p>GMM测试最优组合：<code>Nmix=32~64，MFCC_conf = 'E'</code></p>
+</li>
+</ul>
+<h2 id="倒谱均值减倒谱均值归一化实验测试"><a class="markdownIt-Anchor" href="#倒谱均值减倒谱均值归一化实验测试"></a> 倒谱均值减（倒谱均值归一化）实验测试</h2>
+<p>之前已经分析过：噪声会影响到倒谱的统计量，有效的做法就是讲倒谱的均值去除（归一化）能减少噪声对语音归一化后的倒谱的影响。但是估计倒谱的方式很多，这里尝试以下几种倒谱估计方法。</p>
+<ol>
+<li>
+<p>【CMS_by_frame】倒谱均值：每一句话计算一个倒谱均值</p>
+</li>
+<li>
+<p>【CMS_by_frame】倒谱均值：根据每一个人每一句话计算倒谱均值。</p>
+<ul>
+<li>去除一阶统计量：即均值</li>
+<li>去除二阶统计量：即方差</li>
+</ul>
+</li>
+<li>
+<p>【CMS_by_people】倒谱均值：将10句话累加起来，计算一个倒谱均值</p>
+<ul>
+<li>去除一阶统计量：即均值</li>
+<li>去除二阶统计量：即方差</li>
+</ul>
+</li>
+<li>
+<p>【CMS_by_formuls】根据论文中给出的倒谱估计公式：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="bold">m</mi><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo><mo>=</mo><mrow><mo fence="true">{</mo><mtable rowspacing="0.15999999999999992em" columnalign="left left" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>λ</mi><mo>⋅</mo><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></msubsup><mo stretchy="false">(</mo><mi mathvariant="bold">C</mi><mo stretchy="false">(</mo><mi>i</mi><mo stretchy="false">)</mo><mi mathvariant="normal">/</mi><mi>N</mi><mo stretchy="false">)</mo><mo>+</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>λ</mi><mo stretchy="false">)</mo><mo>⋅</mo><mi mathvariant="bold">C</mi><mo stretchy="false">(</mo><mi>t</mi><mo>+</mo><mi>N</mi><mo stretchy="false">)</mo></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>t</mi><mo>=</mo><mn>1</mn></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>λ</mi><mo>⋅</mo><mi mathvariant="bold">m</mi><mo stretchy="false">(</mo><mi>t</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo>+</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>λ</mi><mo stretchy="false">)</mo><mo>⋅</mo><mi mathvariant="bold">C</mi><mo stretchy="false">(</mo><mi>t</mi><mo>+</mo><mi>N</mi><mo stretchy="false">)</mo></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mn>2</mn><mo>≤</mo><mi>t</mi><mo>≤</mo><mi>T</mi><mo>−</mo><mi>N</mi></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi mathvariant="bold">m</mi><mo stretchy="false">(</mo><mi>T</mi><mo>−</mo><mi>N</mi><mo stretchy="false">)</mo></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>T</mi><mo>−</mo><mi>N</mi><mo>&lt;</mo><mi>t</mi><mo>≤</mo><mi>T</mi></mrow></mstyle></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">\mathbf{m}(t)=\left\{\begin{array}{ll}
+\lambda \cdot \sum_{i=1}^{N}(\mathbf{C}(i) / N)+(1-\lambda) \cdot \mathbf{C}(t+N) &amp;  t=1 \\
+\lambda \cdot \mathbf{m}(t-1)+(1-\lambda) \cdot \mathbf{C}(t+N) &amp;  2 \leq t \leq T-N \\
+\mathbf{m}(T-N) &amp;  T-N&lt;t \leq T
+\end{array}\right.
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathbf">m</span></span><span class="mopen">(</span><span class="mord mathdefault">t</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:3.741231000000001em;vertical-align:-1.6206155000000004em;"></span><span class="minner"><span class="mopen"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.05002em;"><span style="top:-2.49999em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎩</span></span></span><span style="top:-3.15001em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎨</span></span></span><span style="top:-4.30002em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎧</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.55002em;"><span></span></span></span></span></span></span><span class="mord"><span class="mtable"><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.1206155000000004em;"><span style="top:-4.1393845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">λ</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.981231em;"><span style="top:-2.40029em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.2029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.10903em;">N</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.29971000000000003em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathbf">C</span></span><span class="mopen">(</span><span class="mord mathdefault">i</span><span class="mclose">)</span><span class="mord">/</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault">λ</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord"><span class="mord mathbf">C</span></span><span class="mopen">(</span><span class="mord mathdefault">t</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mclose">)</span></span></span><span style="top:-2.9393844999999996em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">λ</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord"><span class="mord mathbf">m</span></span><span class="mopen">(</span><span class="mord mathdefault">t</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault">λ</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord"><span class="mord mathbf">C</span></span><span class="mopen">(</span><span class="mord mathdefault">t</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mclose">)</span></span></span><span style="top:-1.7393844999999997em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathbf">m</span></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mclose">)</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.6206155000000004em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.1206155000000004em;"><span style="top:-4.1393845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">t</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord">1</span></span></span><span style="top:-2.9393844999999996em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord mathdefault">t</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span></span></span><span style="top:-1.7393844999999997em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord mathdefault">t</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.6206155000000004em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<p>其中N是计算倒谱均值m窗宽，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>λ</mi></mrow><annotation encoding="application/x-tex">\lambda</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">λ</span></span></span></span> 是更新步长，两者满足：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mo>−</mo><msup><mi>λ</mi><mi>N</mi></msup><mo>=</mo><mfrac><mn>1</mn><msqrt><mn>2</mn></msqrt></mfrac></mrow><annotation encoding="application/x-tex">1-\lambda^{N} = \frac{1}{\sqrt{2}}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8913309999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault">λ</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8913309999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.10903em;">N</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.25144em;vertical-align:-0.93em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.2027799999999997em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.90722em;"><span class="svg-align" style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord" style="padding-left:0.833em;"><span class="mord">2</span></span></span><span style="top:-2.86722em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="min-width:0.853em;height:1.08em;"><svg width="400em" height="1.08em" viewbox="0 0 400000 1080" preserveaspectratio="xMinYMin slice"><path d="M95,702c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,
+-10,-9.5,-14c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54c44.2,-33.3,65.8,
+-50.3,66.5,-51c1.3,-1.3,3,-2,5,-2c4.7,0,8.7,3.3,12,10s173,378,173,378c0.7,0,
+35.3,-71,104,-213c68.7,-142,137.5,-285,206.5,-429c69,-144,104.5,-217.7,106.5,
+-221c5.3,-9.3,12,-14,20,-14H400000v40H845.2724s-225.272,467,-225.272,467
+s-235,486,-235,486c-2.7,4.7,-9,7,-19,7c-6,0,-10,-1,-12,-3s-194,-422,-194,-422
+s-65,47,-65,47z M834 80H400000v40H845z"/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.13278em;"><span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.93em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+</li>
+</ol>
+<blockquote>
+<p>根据经过测试发现：</p>
+<ul>
+<li>若N取一个固定值，最优值为100，</li>
+<li>当N取动态长度时，最优值值是：当前语音测试段的一半帧长。</li>
+</ul>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>使用方法</th>
+<th>SNR=40</th>
+<th>SNR=20</th>
+<th>SNR=0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>未倒谱改进</td>
+<td>89.111111%</td>
+<td>69.333333%</td>
+<td>29.555556%</td>
+</tr>
+<tr>
+<td>CMS_by_frame</td>
+<td>73.111111%</td>
+<td>54.666667%</td>
+<td>21.111111%</td>
+</tr>
+<tr>
+<td>CMVS_by_frame</td>
+<td>66.222222%</td>
+<td>47.111111%</td>
+<td>18.888889%</td>
+</tr>
+<tr>
+<td>CMS_by_people</td>
+<td>83.333333%</td>
+<td>61.777778%</td>
+<td>11.777778%</td>
+</tr>
+<tr>
+<td>CMVS_by_people</td>
+<td>90.000000%</td>
+<td>73.777778%</td>
+<td>16.888889%</td>
+</tr>
+<tr>
+<td>CMS_by_formuls</td>
+<td>82.000000%</td>
+<td>65.777778%</td>
+<td>31.777778%</td>
+</tr>
+</tbody>
+</table>
+<p>结论：</p>
+<ul>
+<li>以一句话计算的倒谱均值，识别率整体不高，可以pass掉</li>
+<li>以10句话计算的倒谱均值，在低噪环境中有优势</li>
+<li>以论文中给的给出的倒谱均值公式，在低信噪比的环境中有优势。</li>
+</ul>
+<h2 id="i-vector-ldaplda"><a class="markdownIt-Anchor" href="#i-vector-ldaplda"></a> i-vector + lda/plda</h2>
+<p>实验环境太复杂，只看识别率相对比较值</p>
+<h3 id="实验1验证i-vector是否在有噪环境下比gmm-ubm表现更好"><a class="markdownIt-Anchor" href="#实验1验证i-vector是否在有噪环境下比gmm-ubm表现更好"></a> 实验1：验证i-vector是否在有噪环境下比GMM-UBM表现更好？</h3>
+<table>
+<thead>
+<tr>
+<th>nmix</th>
+<th>64</th>
+<th>128</th>
+<th>512</th>
+<th>1024</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GMM-UBM</td>
+<td>77.6%</td>
+<td>81.6%</td>
+<td>77.2%</td>
+<td>76%</td>
+</tr>
+<tr>
+<td>i-vector+余弦距离</td>
+<td>56%</td>
+<td>64%</td>
+<td>70.8%</td>
+<td>64%</td>
+</tr>
+<tr>
+<td>i-vector+lda+余弦距离</td>
+<td>78%左右</td>
+<td>82%左右</td>
+<td>84.4%左右</td>
+<td>77%左右</td>
+</tr>
+<tr>
+<td>i-vector是否有优势</td>
+<td>水平相当</td>
+<td>水平相当</td>
+<td>有一点优势</td>
+<td>水平相当</td>
+</tr>
+</tbody>
+</table>
+<p>结论：</p>
+<ul>
+<li>随着Nmix的提高，传统的GMM-UBM的识别率已经到达瓶颈了，再提高只会消耗计算性能。</li>
+<li>不降维的i-vector如果直接计算余弦距离，识别结果不是好高。</li>
+<li>i-vector-lda算法中自带降维思想，所以维数越高表现越明显，已经很多组实验验证了这个趋势。</li>
+</ul>
+<h3 id="实验2与实验1作对比实验实验条件为无噪环境"><a class="markdownIt-Anchor" href="#实验2与实验1作对比实验实验条件为无噪环境"></a> 实验2：与实验1作对比实验，实验条件为：无噪环境</h3>
+<table>
+<thead>
+<tr>
+<th>nmix</th>
+<th>32</th>
+<th>64</th>
+<th>128</th>
+<th>256</th>
+<th>512</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GMM-UBM</td>
+<td>91</td>
+<td>90</td>
+<td>85.5555556</td>
+<td>85.5555556</td>
+<td>80.88888</td>
+</tr>
+<tr>
+<td>i-vector+ 余弦距离</td>
+<td>48.88888</td>
+<td>66</td>
+<td>74.88888</td>
+<td>74.66666</td>
+<td>76.444444</td>
+</tr>
+<tr>
+<td>i-vector+lda+余弦距离</td>
+<td>82左右</td>
+<td>82左右</td>
+<td>84左右</td>
+<td>88左右</td>
+<td>85左右</td>
+</tr>
+<tr>
+<td>i-vector是否有优势</td>
+<td>差</td>
+<td>差</td>
+<td>相当</td>
+<td>稍高</td>
+<td>高</td>
+</tr>
+</tbody>
+</table>
+<p>实验结论：</p>
+<ul>
+<li>在无噪环境下，i-vector在相同nmix下，某些场景确实好于GMM-UBM算法</li>
+<li>但是GMM-UBM在nmix=32，能用更少的计算量达到最好的全局最优识别率，所以在无噪环境下GMM-UBM优势更大。</li>
+</ul>
+<p>实验1与实验2的比较结论：</p>
+<ul>
+<li>无噪环境：GMM-UBM表现更好。</li>
+<li>有噪环境：i-vector + lda 稍好，能体现一定优势。</li>
+</ul>
+<h3 id="实验3进行更为细致的信道测试"><a class="markdownIt-Anchor" href="#实验3进行更为细致的信道测试"></a> 实验3：进行更为细致的信道测试</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">nmix</th>
+<th style="text-align:center">GMM-UBM</th>
+<th style="text-align:center">噪声类型</th>
+<th style="text-align:center">i-vector</th>
+<th style="text-align:center">i-vector+lda</th>
+<th style="text-align:center">i-vector是否有优势</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">64</td>
+<td style="text-align:center">81.555555</td>
+<td style="text-align:center"><code>car</code></td>
+<td style="text-align:center">53.333333</td>
+<td style="text-align:center">75左右</td>
+<td style="text-align:center">差</td>
+</tr>
+<tr>
+<td style="text-align:center">256</td>
+<td style="text-align:center">78.444444</td>
+<td style="text-align:center"><code>car</code></td>
+<td style="text-align:center">68</td>
+<td style="text-align:center">78左右</td>
+<td style="text-align:center">相当</td>
+</tr>
+<tr>
+<td style="text-align:center">512</td>
+<td style="text-align:center">77.333333</td>
+<td style="text-align:center"><code>car</code></td>
+<td style="text-align:center">70</td>
+<td style="text-align:center">78左右</td>
+<td style="text-align:center">略好</td>
+</tr>
+<tr>
+<td style="text-align:center">1024</td>
+<td style="text-align:center">77.111111</td>
+<td style="text-align:center"><code>car</code></td>
+<td style="text-align:center">65.333333</td>
+<td style="text-align:center">75左右</td>
+<td style="text-align:center">相当</td>
+</tr>
+<tr>
+<td style="text-align:center">32</td>
+<td style="text-align:center">71.777778</td>
+<td style="text-align:center"><code>cafe</code></td>
+<td style="text-align:center">31.777777</td>
+<td style="text-align:center">60左右</td>
+<td style="text-align:center">差很多</td>
+</tr>
+<tr>
+<td style="text-align:center">64</td>
+<td style="text-align:center">69.333333</td>
+<td style="text-align:center"><code>cafe</code></td>
+<td style="text-align:center">44.666666</td>
+<td style="text-align:center">67左右</td>
+<td style="text-align:center">略差</td>
+</tr>
+<tr>
+<td style="text-align:center">512</td>
+<td style="text-align:center">55.333333</td>
+<td style="text-align:center"><code>cafe</code></td>
+<td style="text-align:center">512.55555</td>
+<td style="text-align:center">65左右</td>
+<td style="text-align:center">好很多</td>
+</tr>
+<tr>
+<td style="text-align:center">1024</td>
+<td style="text-align:center">53.111111</td>
+<td style="text-align:center"><code>cafe</code></td>
+<td style="text-align:center">49.777778</td>
+<td style="text-align:center">60左右</td>
+<td style="text-align:center">好些</td>
+</tr>
+<tr>
+<td style="text-align:center">32</td>
+<td style="text-align:center">62.8888889</td>
+<td style="text-align:center"><code>white</code></td>
+<td style="text-align:center">22</td>
+<td style="text-align:center">50左右</td>
+<td style="text-align:center">差很多</td>
+</tr>
+<tr>
+<td style="text-align:center">64</td>
+<td style="text-align:center">61.5555555</td>
+<td style="text-align:center"><code>white</code></td>
+<td style="text-align:center">32.444444</td>
+<td style="text-align:center">60左右</td>
+<td style="text-align:center">相当</td>
+</tr>
+<tr>
+<td style="text-align:center">512</td>
+<td style="text-align:center">55.3333333</td>
+<td style="text-align:center"><code>white</code></td>
+<td style="text-align:center">51.555556</td>
+<td style="text-align:center">65左右</td>
+<td style="text-align:center">好很多</td>
+</tr>
+<tr>
+<td style="text-align:center">1024</td>
+<td style="text-align:center">53.1111111</td>
+<td style="text-align:center"><code>white</code></td>
+<td style="text-align:center">49.777778</td>
+<td style="text-align:center">60左右</td>
+<td style="text-align:center">略好</td>
+</tr>
+</tbody>
+</table>
+<p>实验结论：</p>
+<ul>
+<li><code>car</code>环境下：GMM-UBM优于i-vector</li>
+<li><code>cafe</code>环境下：GMM-UBM优于i-vector</li>
+<li><code>white</code>环境下：i-vector优于GMM—UBM，（白噪声对识别率的影响更大）</li>
+</ul>
+<h3 id="实验4i-vectorplda测试"><a class="markdownIt-Anchor" href="#实验4i-vectorplda测试"></a> 实验4：i-vector+PLDA测试：</h3>
+<p>识别部分公式：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mtable rowspacing="0.24999999999999992em" columnalign="right left" columnspacing="0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mtext> score </mtext></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mi>log</mi><mo>⁡</mo><mi mathvariant="script">N</mi><mrow><mo fence="true">(</mo><mrow><mo fence="true">[</mo><mtable rowspacing="0.15999999999999992em" columnalign="left" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><msub><mi>η</mi><mn>1</mn></msub></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><msub><mi>η</mi><mn>2</mn></msub></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow><mo separator="true">;</mo><mrow><mo fence="true">[</mo><mtable rowspacing="0.15999999999999992em" columnalign="left" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mi>m</mi></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mi>m</mi></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow><mo separator="true">,</mo><mrow><mo fence="true">[</mo><mtable rowspacing="0.15999999999999992em" columnalign="left left" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><msub><mi mathvariant="normal">Σ</mi><mrow><mi>t</mi><mi>o</mi><mi>t</mi></mrow></msub></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><msub><mi mathvariant="normal">Σ</mi><mrow><mi>a</mi><mi>c</mi></mrow></msub></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><msub><mi mathvariant="normal">Σ</mi><mrow><mi>a</mi><mi>c</mi></mrow></msub></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><msub><mi mathvariant="normal">Σ</mi><mrow><mi>t</mi><mi>o</mi><mi>c</mi></mrow></msub></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow><mo fence="true">)</mo></mrow></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>−</mo><mi>log</mi><mo>⁡</mo><mi mathvariant="script">N</mi><mrow><mo fence="true">(</mo><mrow><mo fence="true">[</mo><mtable rowspacing="0.15999999999999992em" columnalign="left" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><msub><mi>η</mi><mn>1</mn></msub></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><msub><mi>η</mi><mn>2</mn></msub></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow><mo separator="true">;</mo><mrow><mo fence="true">[</mo><mtable rowspacing="0.15999999999999992em" columnalign="left" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mi>m</mi></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mi>m</mi></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow><mo separator="true">,</mo><mrow><mo fence="true">[</mo><mtable rowspacing="0.15999999999999992em" columnalign="center center" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><msub><mi mathvariant="normal">Σ</mi><mrow><mi>t</mi><mi>o</mi><mi>t</mi></mrow></msub></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><msub><mi mathvariant="normal">Σ</mi><mrow><mi>t</mi><mi>o</mi><mi>t</mi></mrow></msub></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow><mo fence="true">)</mo></mrow></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+\text { score } &amp;=\log \mathcal{N}\left(\left[\begin{array}{l}
+\eta_{1} \\
+\eta_{2}
+\end{array}\right] ;\left[\begin{array}{l}
+m \\
+m
+\end{array}\right],\left[\begin{array}{ll}
+\Sigma_{t o t} &amp; \Sigma_{a c} \\
+\Sigma_{a c} &amp; \Sigma_{t o c}
+\end{array}\right]\right) \\
+&amp;-\log \mathcal{N}\left(\left[\begin{array}{l}
+\eta_{1} \\
+\eta_{2}
+\end{array}\right] ;\left[\begin{array}{l}
+m \\
+m
+\end{array}\right],\left[\begin{array}{cc}
+\Sigma_{t o t} &amp; 0 \\
+0 &amp; \Sigma_{t o t}
+\end{array}\right]\right)
+\end{aligned}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:5.40006em;vertical-align:-2.45003em;"></span><span class="mord"><span class="mtable"><span class="col-align-r"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.95003em;"><span style="top:-4.95003em;"><span class="pstrut" style="height:3.45em;"></span><span class="mord"><span class="mord text"><span class="mord"> score </span></span></span></span><span style="top:-2.2500000000000004em;"><span class="pstrut" style="height:3.45em;"></span><span class="mord"></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:2.45003em;"><span></span></span></span></span></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.95003em;"><span style="top:-4.95003em;"><span class="pstrut" style="height:3.45em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathcal" style="margin-right:0.14736em;">N</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">(</span></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">[</span></span><span class="mord"><span class="mtable"><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">η</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-2.4099999999999997em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">η</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9500000000000004em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">]</span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mpunct">;</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">[</span></span><span class="mord"><span class="mtable"><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">m</span></span></span><span style="top:-2.4099999999999997em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">m</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9500000000000004em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">]</span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">[</span></span><span class="mord"><span class="mtable"><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord">Σ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2805559999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">t</span><span class="mord mathdefault mtight">o</span><span class="mord mathdefault mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-2.4099999999999997em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord">Σ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">a</span><span class="mord mathdefault mtight">c</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9500000000000004em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord">Σ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">a</span><span class="mord mathdefault mtight">c</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-2.4099999999999997em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord">Σ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2805559999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">t</span><span class="mord mathdefault mtight">o</span><span class="mord mathdefault mtight">c</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9500000000000004em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">]</span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">)</span></span></span></span></span><span style="top:-2.2500000000000004em;"><span class="pstrut" style="height:3.45em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathcal" style="margin-right:0.14736em;">N</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">(</span></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">[</span></span><span class="mord"><span class="mtable"><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">η</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-2.4099999999999997em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">η</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9500000000000004em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">]</span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mpunct">;</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">[</span></span><span class="mord"><span class="mtable"><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">m</span></span></span><span style="top:-2.4099999999999997em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">m</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9500000000000004em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">]</span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">[</span></span><span class="mord"><span class="mtable"><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord">Σ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2805559999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">t</span><span class="mord mathdefault mtight">o</span><span class="mord mathdefault mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-2.4099999999999997em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9500000000000004em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span></span></span><span style="top:-2.4099999999999997em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord">Σ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2805559999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">t</span><span class="mord mathdefault mtight">o</span><span class="mord mathdefault mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9500000000000004em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">]</span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">)</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:2.45003em;"><span></span></span></span></span></span></span></span></span></span></span></span></p>
+<blockquote>
+<p>模型矢量和测试矢量来自一个分布的概率 减去 模型矢量和测试矢量来自不同分布的概率。这部分MSR工具箱已经有现成的代码了。而且主要被应用于说话人确认系统中。</p>
+</blockquote>
+<p>自编公式：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mrow><mi>p</mi><mrow><mo fence="true">(</mo><msup><mi mathvariant="bold">u</mi><mi>p</mi></msup><mi mathvariant="normal">∣</mi><msubsup><mi mathvariant="bold">u</mi><mrow><mn>1</mn><mo separator="true">,</mo><mo>…</mo><mo separator="true">,</mo><mi>n</mi></mrow><mi>g</mi></msubsup><mo fence="true">)</mo></mrow><mo>=</mo><mi mathvariant="script">N</mi><mrow><mo fence="true">(</mo><mfrac><mrow><mi>n</mi><mi mathvariant="normal">Ψ</mi></mrow><mrow><mi>n</mi><mi mathvariant="normal">Ψ</mi><mo>+</mo><mi>I</mi></mrow></mfrac><msup><mover accent="true"><mi mathvariant="bold">u</mi><mo stretchy="true">‾</mo></mover><mi>g</mi></msup><mo separator="true">,</mo><mfrac><mi mathvariant="normal">Ψ</mi><mrow><mi>n</mi><mi mathvariant="normal">Ψ</mi><mo>+</mo><mi>I</mi></mrow></mfrac><mo>+</mo><mi>I</mi><mo fence="true">)</mo></mrow></mrow><mspace linebreak="newline"></mspace></mrow><annotation encoding="application/x-tex">{p\left(\mathbf{u}^{p} | \mathbf{u}_{1, \ldots, n}^{g}\right)=\mathcal{N}\left(\frac{n \Psi}{n \Psi+I} \overline{\mathbf{u}}^{g}, \frac{\Psi}{n \Psi+I}+I\right)} \\
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.40003em;vertical-align:-0.95003em;"></span><span class="mord"><span class="mord mathdefault">p</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size1">(</span></span><span class="mord"><span class="mord"><span class="mord mathbf">u</span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.714392em;"><span style="top:-3.1130000000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">p</span></span></span></span></span></span></span></span></span><span class="mord">∣</span><span class="mord"><span class="mord"><span class="mord mathbf">u</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7823em;"><span style="top:-2.433692em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mpunct mtight">,</span><span class="minner mtight">…</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight">n</span></span></span></span><span style="top:-3.1809080000000005em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">g</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.402416em;"><span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size1">)</span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord"><span class="mord mathcal" style="margin-right:0.14736em;">N</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">(</span></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">n</span><span class="mord">Ψ</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">n</span><span class="mord">Ψ</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.7693300000000001em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mord"><span class="mord overline"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6444400000000001em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathbf">u</span></span></span></span><span style="top:-3.5644400000000003em;"><span class="pstrut" style="height:3em;"></span><span class="overline-line" style="border-bottom-width:0.04em;"></span></span></span></span></span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.714392em;"><span style="top:-3.1130000000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">g</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">n</span><span class="mord">Ψ</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">Ψ</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.7693300000000001em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">)</span></span></span></span></span><span class="mspace newline"></span></span></span></span></p>
+<blockquote>
+<p>测试向量在原空间分下的概率为多少，概率越大则判定为所属分类，更加直观。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">训练时长</th>
+<th style="text-align:center">是否加噪</th>
+<th style="text-align:center">GMM-UBM</th>
+<th style="text-align:center">i-vector+余弦</th>
+<th style="text-align:center">lda降噪</th>
+<th style="text-align:center">1v1公式</th>
+<th style="text-align:center">自编函数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">无噪</td>
+<td style="text-align:center">80.888889</td>
+<td style="text-align:center">78.888889</td>
+<td style="text-align:center">88.444444</td>
+<td style="text-align:center">70.666667</td>
+<td style="text-align:center">72.444444</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">无噪</td>
+<td style="text-align:center">92.75</td>
+<td style="text-align:center">91</td>
+<td style="text-align:center">94</td>
+<td style="text-align:center">93</td>
+<td style="text-align:center">93.5</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">无噪</td>
+<td style="text-align:center">91.714286</td>
+<td style="text-align:center">95.428571</td>
+<td style="text-align:center">96.571429</td>
+<td style="text-align:center">94.571429</td>
+<td style="text-align:center">94.857143</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">有噪</td>
+<td style="text-align:center">26</td>
+<td style="text-align:center">16.22222</td>
+<td style="text-align:center">32</td>
+<td style="text-align:center">28.888889</td>
+<td style="text-align:center">28.222222</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">有噪</td>
+<td style="text-align:center">34.571429</td>
+<td style="text-align:center">19.428571</td>
+<td style="text-align:center">50</td>
+<td style="text-align:center">48.571429</td>
+<td style="text-align:center">46.857143</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center">有噪</td>
+<td style="text-align:center">44.4</td>
+<td style="text-align:center">20</td>
+<td style="text-align:center">59.2</td>
+<td style="text-align:center">57.6</td>
+<td style="text-align:center">59.2</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center">强信道</td>
+<td style="text-align:center">27.2</td>
+<td style="text-align:center">6.8</td>
+<td style="text-align:center">45.2</td>
+<td style="text-align:center">41.2</td>
+<td style="text-align:center">42</td>
+</tr>
+</tbody>
+</table>
+<p>实验结论：</p>
+<ul>
+<li>i-vector+plda没有明显优势，识别率相较于lda降噪结果略低，且是在lda降噪结果的基础上改进，也就是起的反作用？所以是使用场景的问题？</li>
+<li>i-vector+lda 在强噪环境下优势明显，这里的强信道指的是训练段与测试端加的噪声类型不同。</li>
+<li>在无噪环境下，训练语音段的增加对于i-vector的作用要高于GMM-UBM。</li>
+</ul>
+<h2 id="自适应滤波实验"><a class="markdownIt-Anchor" href="#自适应滤波实验"></a> 自适应滤波实验</h2>
+<p>无噪环境下GMM-UBM的识别率为：90.000000%</p>
+<table>
+<thead>
+<tr>
+<th>测试方法</th>
+<th>SNR=10（white噪声）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GMM-UBM</td>
+<td>54.888889%</td>
+</tr>
+<tr>
+<td>LMS算法(随机截取一段作为input信号)</td>
+<td>无法实现</td>
+</tr>
+<tr>
+<td>LMS算法(自编)</td>
+<td>81.777778%（mu=32，step=10）</td>
+</tr>
+<tr>
+<td>LMS算法(调用)</td>
+<td>75.555556%（mu=32，step=10）</td>
+</tr>
+<tr>
+<td>NLMS算法</td>
+<td>87.555556%</td>
+</tr>
+<tr>
+<td>RLS算法</td>
+<td>62.000000%</td>
+</tr>
+</tbody>
+</table>
+<p><strong>实验结论：</strong></p>
+<ul>
+<li>
+<p>LMS 有个缺点是：不容易收敛，理论上NLMS能解决这种收敛迭代问题</p>
+</li>
+<li>
+<p>RLS：<strong>计算量巨大</strong>，理论上能快速收敛，通过实际观察波形图，确实前面一段语音噪声没了，但是相对于LMS算法对原波形的影响较大。应该是超参数没有设置到位导致的过渡的去噪。</p>
+<img style="zoom: 80%;" data-src="https://cdn.jsdelivr.net/gh/wangjs-jacky/testpic/img_temp/image-20200411115153046.png" class="lozad">
+</li>
+<li>
+<p>自适应的缺点：必须事先知道<strong>噪声类型</strong>（这里的实验必须是同时采集信号与噪声两个信息才可以去噪，只知道噪声类型还无法做到比较好的优化）才能得到比较好的优化，理论上解决<strong>白噪声</strong>的能力优于其他噪声。</p>
+</li>
+</ul>
+</div></article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0/">论文复现    </a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/wangjs-jacky/testpic/img_temp/20200222005653.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script></div></div><nav class="pagination_post" id="pagination"><div class="next-post pull-full"><a href="/2020/04/11/%E8%B0%B1%E5%87%8F%E6%B3%95/"><img class="next_cover lozad" data-src="https://cdn.jsdelivr.net/gh/wangjs-jacky/testpic/img_temp/20200327214128.png" onerror="onerror=null;src='/img/404.jpg'"><div class="label">下一篇</div><div class="next_info"><span>谱减法</span></div></a></div></nav></div></div><footer><div id="footer"><div class="copyright">&copy;2019 - 2020 By Jacky</div><div class="framework-info"><span>驱动 </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div><div class="footer_custom_text">Hi, welcome to my <a href="http://wangjs-jacky.github.io">blog</a>!</div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换">繁</a><i class="nightshift fa fa-moon-o" id="nightshift" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css"><script>$(function () {
+  $('span.katex-display').wrap('<div class="katex-wrap"></div>')
+})</script><script async src="/js/search/local-search.js"></script><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="/js/third-party/fireworks.js"></script><script src="/js/nightshift.js"></script><script color="0,0,255" opacity="0.7" zIndex="-1" count="99" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/js/canvas-nest.js"></script><script src="/js/tw_cn.js"></script><script>translateInitilization()
+
+</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@1.2.2/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script><script>const observer = lozad(); // lazy loads elements with default selector as '.lozad'
+observer.observe();
+</script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div></body></html>
